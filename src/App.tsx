@@ -1,10 +1,13 @@
 import React from 'react';
+import { SpenInput } from './Components/SpenInput/SpenInput';
+import View from './Components/View/View';
 
 const App = () => {
     return (
-        <div className="w-screen h-screen bg-blue-300">
-            <p>article</p>
-        </div>
+        <>
+            <SpenInput />
+            <View />
+        </>
     );
 };
 

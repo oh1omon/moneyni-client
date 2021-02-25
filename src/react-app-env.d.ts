@@ -1,14 +1,12 @@
 /// <reference types="react-scripts" />
-interface IDaySpendings {
-    _id: string;
-    date: string;
-    sum: number;
-    spendings: string[];
+interface ISpending {
+    category: string;
+    date: number;
+    comment: string;
+    cost: number;
 }
 
-type DayAction = {
+type ISpendingAction = {
     type: string;
-    day: IDaySpendings;
+    spending: ISpending;
 };
-
-type SpendingsState = IDaySpendings[];
