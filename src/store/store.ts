@@ -1,9 +1,9 @@
 import { applyMiddleware, createStore, Store } from 'redux';
-import { dayReducer } from './day/dayReducer';
+import { userReducer } from './user/userReducer';
 import thunk from 'redux-thunk';
-import { DayStateAction, IDayState } from './day/dayTypes';
+import { UserStateAction, IUserInitialState } from './user/userTypes';
 
-export const store: Store<IDayState, DayStateAction> = createStore(
-    dayReducer,
+export const store: Store<IUserInitialState, UserStateAction> = createStore(
+    userReducer,
     applyMiddleware(thunk)
 );

@@ -1,16 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { IDaySpendings, IDayState } from '../../store/day/dayTypes';
+import { IUser } from '../../store/user/userTypes';
 
 const View = () => {
-    const days: IDayState = useSelector((state: IDayState) => state);
-    return (
-        <div>
-            {days.map((day: IDaySpendings) => (
-                <p key={day._id}>{day.date}</p>
-            ))}
-        </div>
-    );
+    const user: IUser = useSelector((state: IUser) => state);
+    return <div></div>;
 };
 
 export default View;

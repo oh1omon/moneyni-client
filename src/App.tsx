@@ -1,12 +1,10 @@
 import React from 'react';
-import { SpenInput } from './Components/SpenInput/SpenInput';
-import View from './Components/View/View';
+import SignInUp from './Components/SignInUp/SignInUp';
 
 const App = () => {
     return (
         <>
-            <SpenInput />
-            <View />
+            <SignInUp />
         </>
     );
 };

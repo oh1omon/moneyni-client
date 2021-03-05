@@ -50,5 +50,6 @@
     },
     "devDependencies": {
         "@types/react-redux": "^7.1.16"
-    }
+    },
+    "proxy": "http://127.0.0.1:3001"
 }
