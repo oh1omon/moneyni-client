@@ -1,8 +1,7 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import Input from '../Input/Input';
 import { useDispatch } from 'react-redux';
 import { registerUser, signInUser } from '../../dispatchers/userDispatcher';
-import axios from 'axios';
 
 interface IFormObject {
     email?: string;
@@ -77,12 +76,12 @@ const SignInUp = () => {
         return err;
     };
 
-    useEffect(() => {
-        axios
-            .get('http://127.0.0.1:3001')
-            .then((resp: any) => console.log(resp))
-            .catch((e) => console.log(e));
-    }, []);
+    // useEffect(() => {
+    //     axios
+    //         .get('http://127.0.0.1:3001')
+    //         .then((resp: any) => console.log(resp))
+    //         .catch((e) => console.log(e));
+    // }, []);
 
     return (
         <div className="w-screen h-screen flex justify-center items-center">

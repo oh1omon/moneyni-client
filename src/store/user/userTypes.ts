@@ -1,4 +1,5 @@
 import { Action } from 'redux';
+import { rootReducer } from '../store';
 
 export interface IUser {
     _id: string;
@@ -6,11 +7,11 @@ export interface IUser {
     name: string;
     spendings: string[];
 }
-export type IUserInitialState = IUser | {};
+export type UserState = boolean | IUser;
+
+export type RootReducer = ReturnType<typeof rootReducer>;
 
 export interface UserStateAction extends Action {
     type: string;
-    payload: {
-        user: IUser;
-    };
+    payload: UserState;
 }
