@@ -9,6 +9,6 @@ export const userReducer = (
         case actionTypes.SET_USER:
             return action.payload;
         default:
-            return false;
+            return state;
     }
 };

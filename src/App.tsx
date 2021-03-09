@@ -9,22 +9,28 @@ import { IUser } from './store/user/userTypes';
 import { RootState } from './store/store';
 import { Dispatch } from 'redux';
 import Home from './Components/Home/Home';
+import AddSpend from './Components/AddSpend/AddSpend.';
 
 const App = () => {
     const dispatch: Dispatch<any> = useDispatch();
     const user: boolean | IUser = useSelector((state: RootState) => state.user);
+    console.log(user);
     useEffect(() => {
         dispatch(initializeUserState());
     }, [dispatch]);
     return (
         <BrowserRouter>
             {user ? <Navbar /> : false}
+            <div>{typeof user !== 'boolean' ? user.email : user}</div>
             <Switch>
                 <Route path={'/'} exact={true}>
                     {user ? <Redirect to={'/home'} /> : <SignInUp />}
                 </Route>
                 <Route path={'/home'}>
                     {user ? <Home /> : <Redirect to={'/'} />}
+                </Route>
+                <Route path={'/addspend'}>
+                    {user ? <AddSpend /> : <Redirect to={'/'} />}
                 </Route>
             </Switch>
         </BrowserRouter>

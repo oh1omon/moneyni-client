@@ -8,6 +8,8 @@ export const spendsReducer = (
     switch (action.type) {
         case actionTypes.SET_SPENDS:
             return action.payload;
+        case actionTypes.ADD_SPEND:
+            return [...state, action.payload];
         default:
             return state;
     }

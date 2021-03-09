@@ -12,5 +12,5 @@ export interface ISpend {
 
 export interface SpendsStateAction extends Action {
     type: string;
-    payload: SpendsState;
+    payload: SpendsState | ISpend;
 }

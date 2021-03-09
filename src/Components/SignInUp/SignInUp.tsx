@@ -76,18 +76,11 @@ const SignInUp = () => {
         return err;
     };
 
-    // useEffect(() => {
-    //     axios
-    //         .get('http://127.0.0.1:3001')
-    //         .then((resp: any) => console.log(resp))
-    //         .catch((e) => console.log(e));
-    // }, []);
-
     return (
         <div className="w-screen h-screen flex justify-center items-center">
             <form
                 className="flex flex-col justify-between items-center h-3/4 w-3/4"
-                onSubmit={submitHandler}
+                onSubmit={(e: FormEvent<HTMLFormElement>) => submitHandler(e)}
             >
                 {inputs
                     .filter((input) => input.activated)
@@ -96,7 +89,9 @@ const SignInUp = () => {
                             key={input.inputId}
                             inputType={input.inputType}
                             inputId={input.inputId}
-                            changeHandler={changeHandler}
+                            changeHandler={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) => changeHandler(e)}
                             err={err.includes(input.inputId)}
                         />
                     ))}
