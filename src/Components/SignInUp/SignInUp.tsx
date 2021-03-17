@@ -1,7 +1,8 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import Input from '../Input/Input';
 import { useDispatch } from 'react-redux';
 import { registerUser, signInUser } from '../../dispatchers/userDispatcher';
+import Button from '../Button/Button';
 
 interface IFormObject {
     email?: string;
@@ -42,7 +43,7 @@ const SignInUp = () => {
         setForm(prevForm);
     };
 
-    const submitHandler = (e: FormEvent) => {
+    const submitHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setErr([]);
         const validationResult: IValRes = formValidator(form);
@@ -77,11 +78,8 @@ const SignInUp = () => {
     };
 
     return (
-        <div className="w-screen h-screen flex justify-center items-center">
-            <form
-                className="flex flex-col justify-between items-center h-3/4 w-3/4"
-                onSubmit={(e: FormEvent<HTMLFormElement>) => submitHandler(e)}
-            >
+        <div className="w-full h-screen flex justify-center items-center bg-main-dark">
+            <form className="flex flex-col justify-between items-center h-3/4 w-3/4">
                 {inputs
                     .filter((input) => input.activated)
                     .map((input) => (
@@ -95,8 +93,10 @@ const SignInUp = () => {
                             err={err.includes(input.inputId)}
                         />
                     ))}
-
-                <button type="submit">Sign Up</button>
+                <Button
+                    buttonText={signIn ? 'Sign In' : 'Sign Up'}
+                    clickHandler={submitHandler}
+                />
                 <Input
                     inputType={'checkbox'}
                     inputId={'signIn'}

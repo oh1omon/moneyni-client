@@ -14,20 +14,24 @@ const Input = ({
     err = false,
 }: IinputProps) => {
     return (
-        <label htmlFor={inputId}>
-            {`${inputId}: `}
+        <div className="flex flex-col w-3/4 ">
+            <label
+                className="text-xs tracking-wide text-main-yellow mb-1 ml-0.5 "
+                htmlFor={inputId}
+            >{`${inputId}`}</label>
             <input
                 className={`${
-                    err ? 'border-red-400' : 'border-black'
-                } border-2 `}
+                    err ? 'border-main-err' : 'border-main-yellow'
+                } border rounded-md bg-main-dark p-2 transition duration-300 ease-in-out text-main-yellow placeholder-main-yellowLight`}
                 type={inputType}
                 name={inputId}
                 id={inputId}
+                placeholder={inputId}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     changeHandler(e)
                 }
             />
-        </label>
+        </div>
     );
 };
 

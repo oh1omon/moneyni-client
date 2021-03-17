@@ -6,7 +6,7 @@ import { initializeSpendsState } from './spendsDispatcher';
 
 const signUpUrl: string = 'http://127.0.0.1:3001/api/signup/';
 const signInUrl: string = 'http://127.0.0.1:3001/api/signin';
-const authConfirm: string = 'http://127.0.0.1:3001/api/authConfirm';
+const authConfirm: string = 'http://127.0.0.1:3001/api/authconfirm';
 const signOutUrl: string = 'http://127.0.0.1:3001/api/signout';
 const addSpendIdToUserUrl: string = 'http://127.0.0.1:3001/api/addspendtouser';
 
@@ -16,6 +16,7 @@ export const initializeUserState = () => {
             .get(authConfirm)
             .then((resp) => resp.data.user);
         console.log(inState);
+        await axios.get(authConfirm).then((resp) => console.log(resp));
         if (Object.keys(inState).length === 0) {
             console.log('magic');
             inState = false;

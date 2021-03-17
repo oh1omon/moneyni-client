@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Spends from '../Spends/Spends';
 
 const Home = () => {
     return (
-        <div>
-            Home page <Link to={'/addspend'}>Add SPend</Link>{' '}
+        <div className="w-full h-screen flex flex-column justify-center items-center bg-main-dark">
+            <Spends />
         </div>
     );
 };

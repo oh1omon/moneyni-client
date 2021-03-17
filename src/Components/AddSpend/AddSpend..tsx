@@ -73,7 +73,9 @@ const AddSpend = () => {
                         />
                     ))}
 
-                <button type="submit">Sign Up</button>
+                <button className="p-1 border border-black" type="submit">
+                    Add Spendi
+                </button>
             </form>
         </div>
     );
