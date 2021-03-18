@@ -1,7 +1,8 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent,  MouseEvent, useState } from 'react';
 import Input from '../Input/Input';
 import { useDispatch } from 'react-redux';
 import { addSpend } from '../../dispatchers/spendsDispatcher';
+import Button from '../Button/Button';
 
 interface IFormObject {
     category?: string;
@@ -13,19 +14,18 @@ interface IFormObject {
 const AddSpend = () => {
     const dispatch = useDispatch();
     const [inputs, setInputs] = useState([
-        { inputId: 'category', inputType: 'text', activated: true },
         { inputId: 'comment', inputType: 'text', activated: true },
         { inputId: 'cost', inputType: 'text', activated: true },
         { inputId: 'currency', inputType: 'text', activated: false },
     ]);
-    const [form, setForm] = useState<IFormObject>({ currency: 'eur' });
+    const [form, setForm] = useState<IFormObject>({ currency: '€' });
     const [err, setErr] = useState<string[]>([]);
 
-    const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const changeHandler = (e: ChangeEvent<HTMLInputElement|HTMLSelectElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const submitHandler = (e: FormEvent) => {
+    const submitHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setErr([]);
         const validationResult: string[] = formValidator(form);
@@ -54,11 +54,23 @@ const AddSpend = () => {
         return err;
     };
     return (
-        <div className="w-screen h-screen flex justify-center items-center">
+        <div className="w-screen h-screen flex justify-center items-center bg-main-dark">
             <form
-                className="flex flex-col justify-between items-center w-3/4"
-                onSubmit={submitHandler}
+                className="flex flex-col justify-between items-center w-3/4 h-3/5"
+                // onSubmit={submitHandler}
             >
+                <select name='category' id='category' onChange={(e: ChangeEvent<HTMLSelectElement>)=>{changeHandler(e)}}>
+                    <option value='' selected>Select the right one</option>
+                    <option value='Daily Needs' >Daily Needs</option>
+                    <option value='Bad Habits'>Bad Habits</option>
+                    <option value='Hygiene and Health'>Hygiene and Health</option>
+                    <option value='Rent'>Rent</option>
+                    <option value='Clothing and Cosmetics'>Clothing and Cosmetics</option>
+                    <option value='Travel'>Travel</option>
+                    <option value='Food'>Food</option>
+                    <option value='Entertainment and Gifts'>Entertainment and Gifts</option>
+                    <option value='Connection'>Connection</option>
+                </select>
                 {inputs
                     .filter((input) => input.activated)
                     .map((input) => (
@@ -73,9 +85,10 @@ const AddSpend = () => {
                         />
                     ))}
 
-                <button className="p-1 border border-black" type="submit">
-                    Add Spendi
-                </button>
+                    <Button buttonText={'Add Spend'} clickHandler={submitHandler}/>
+                {/*<button className="p-1 border border-black" type="submit">*/}
+                {/*    Add Spendi*/}
+                {/*</button>*/}
             </form>
         </div>
     );

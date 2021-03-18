@@ -14,7 +14,7 @@ module.exports = {
             },
         },
         extend: {
-            borderRadius: { 74: '74%', 26: '26%' },
+            borderRadius: { '100px':'100px' },
             width: {
                 '1/10': '10%',
                 '9/10': '90%',
