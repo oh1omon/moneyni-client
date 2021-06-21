@@ -51,7 +51,12 @@
         "@types/react-redux": "^7.1.16",
         "@types/react-router": "^5.1.12",
         "@types/react-router-dom": "^5.1.7",
+        "@typescript-eslint/eslint-plugin": "^4.27.0",
+        "@typescript-eslint/parser": "^4.27.0",
         "autoprefixer": "^9.8.6",
+        "eslint": "^7.29.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-react": "^7.24.0",
         "postcss": "^7.0.36",
         "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.2"
     },
