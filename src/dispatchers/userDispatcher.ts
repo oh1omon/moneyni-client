@@ -1,88 +1,174 @@
 import axios from 'axios'
-import { Dispatch } from 'redux'
-import { IUser, UserStateAction } from '../react-app-env'
+import { useDispatch } from 'react-redux'
+import { IServerResp, IUserServerResp } from '../react-app-env'
 import * as actionTypes from '../store/user/userAction'
-import { initializeSpendsState } from './spendsDispatcher'
 
-const signUpUrl = '/api/signup/'
-const signInUrl = '/api/signin'
-const authConfirm = '/api/authconfirm'
-const signOutUrl = '/api/signout'
-const addSpendIdToUserUrl = '/api/addspendtouser'
+// API urls
+const registerUrl = '/api/auth/register'
+const loginUrl = '/api/auth/login'
+const logoutUrl = '/api/auth/logout'
+const retrieveUrl = '/api/user/retrieve'
+const updateUrl = '/api/user/update'
 
-export const initializeUserState = () => {
-	return async (dispatch): Promise<null | IUser> => {
-		let inState: IUser | boolean = await axios.get(authConfirm).then((resp) => resp.data.user)
-		console.log(inState)
-		await axios.get(authConfirm).then((resp) => console.log(resp))
-		if (Object.keys(inState).length === 0) {
-			console.log('magic')
-			inState = false
-		} else {
-			if (typeof inState !== 'boolean') {
-				dispatch(initializeSpendsState(inState.spendings))
-			}
+// Creating dispatch statement
+const dispatch = useDispatch()
+
+/**
+ * This function is checking if user is logged in or not.
+ * It firstly fetches server side, and after that it checks if there is user object.
+ * If it is, then it will dispatch it to the store and return response from the server.
+ * If no, then it will dispatch null to the store and return response from the server.
+ * In case of inability to contact the server, it will return status object with message of it.
+ * @returns {Promise<IServerResp>} Response object
+ */
+export const initializeUserState = async (): Promise<IServerResp> => {
+	try {
+		// Fetching data
+		const resp: IUserServerResp = await axios.get(retrieveUrl)
+
+		// TODO: delete
+		console.log(resp)
+		//
+
+		// In case of user logged in we will dispatch his object into store and return this user's object
+		if (resp.status.success) {
+			dispatch({ type: actionTypes.SET_USER, payload: resp.user })
+
+			return resp
 		}
-		dispatch({
-			type: actionTypes.SET_USER,
-			payload: inState,
-		})
+
+		// Handling case of situation, when user is not logged in
+		dispatch({ type: actionTypes.SET_USER, payload: null })
+
+		return resp
+	} catch (e) {
+		console.log(e)
+
+		dispatch({ type: actionTypes.SET_USER, payload: null })
+
+		return { status: { success: false, message: 'Problem has happened while contacting with server' } }
 	}
 }
 
-export const registerUser = (newUserData: any) => {
-	return async (dispatch: Dispatch<UserStateAction>) => {
-		const inState: IUser = await axios
-			.post(signUpUrl, newUserData)
-			.then((res) => res.data.user)
-			.catch((e) => console.log(e))
-		console.log(inState)
-		dispatch({
-			type: actionTypes.SET_USER,
-			payload: inState,
-		})
-	}
-}
+/**
+ * This function tries to register user.
+ * It firstly sends candidates object to the server side.
+ * After that it checks if there is any problem in its response.
+ * If no, then it will dispatch user to the store and return response from the server.
+ * If there are some problems, then it will return response from the server.
+ * In case of inability to contact the server, it will return status object with message of it.
+ * @returns {Promise<IServerResp>} Response object
+ */
+export const registerUser = async (newUserData: any): Promise<IServerResp> => {
+	try {
+		// Sending candidates object to the server
+		const resp: IUserServerResp = await axios.post(registerUrl, newUserData)
 
-export const signInUser = (user: any) => {
-	return async (dispatch: Dispatch<any>) => {
-		let userOrUndef: IUser | boolean = await axios
-			.post(signInUrl, user)
-			.then((res) => res.data.user)
-			.catch((e) => console.log(e))
-		console.log(userOrUndef)
-		if (!userOrUndef) {
-			console.log('magic form signin')
-			userOrUndef = false
-		} else {
-			if (typeof userOrUndef !== 'boolean') {
-				dispatch(initializeSpendsState(userOrUndef.spendings))
-			}
+		// In case of success we will dispatch registered user to the state
+		if (resp.status.success) {
+			dispatch({ type: actionTypes.SET_USER, payload: resp.user })
 		}
-		dispatch({
-			type: actionTypes.SET_USER,
-			payload: userOrUndef ? userOrUndef : false,
-		})
+
+		// Finally we will return server response
+		return resp
+	} catch (e) {
+		console.log(e)
+
+		return { status: { success: false, message: 'Problem has happened while contacting with server' } }
 	}
 }
 
-export const addSpendIdToUser = (newSpendId: string) => {
-	return async (dispatch: Dispatch<any>) => {
-		await axios
-			.post(addSpendIdToUserUrl, { newSpendId })
-			.then((resp) =>
-				dispatch({
-					type: actionTypes.SET_USER,
-					payload: resp.data.user,
-				})
-			)
-			.catch((e) => console.log(e))
+/**
+ * This function tries to sign user in.
+ * It firstly sends login object to the server side.
+ * After that it checks if there is any problem in its response.
+ * If no, then it will dispatch user to the store and return response from the server.
+ * If there are some problems, then it will return response from the server.
+ * In case of inability to contact the server, it will return status object with message of it.
+ * @returns {Promise<IServerResp>} Response object
+ */
+export const signInUser = async (user: any): Promise<IServerResp> => {
+	try {
+		// Sending login object to the server
+		const resp: IUserServerResp = await axios.post(loginUrl, user)
+
+		// TODO: delete
+		console.log(resp)
+		//
+
+		// In case of success we will dispatch logged in user to the state
+		if (resp.status.success) {
+			dispatch({ type: actionTypes.SET_USER, payload: resp.user })
+		}
+
+		// Finally we will return server response
+		return resp
+	} catch (e) {
+		console.log(e)
+
+		return { status: { success: false, message: 'Problem has happened while contacting with server' } }
 	}
 }
 
-export const signOutUser = () => {
-	return async (dispatch: Dispatch<UserStateAction>) => {
-		await axios.get(signOutUrl)
-		dispatch({ type: actionTypes.SET_USER, payload: false })
+/**
+ * This function tries to update user.
+ * It firstly sends updates object to the server side.
+ * After that it checks if there is any problem in its response.
+ * If no, then it will dispatch user to the store and return response from the server.
+ * If there are some problems, then it will return response from the server.
+ * In case of inability to contact the server, it will return status object with message of it.
+ * @returns {Promise<IServerResp>} Response object
+ */
+export const update = async (updates: Record<string, unknown>): Promise<IServerResp> => {
+	try {
+		// Sending login object to the server
+		const resp: IUserServerResp = await axios.post(updateUrl, updates)
+
+		// TODO: delete
+		console.log(resp)
+		//
+
+		// In case of success we will dispatch logged in user to the state
+		if (resp.status.success) {
+			dispatch({ type: actionTypes.SET_USER, payload: resp.user })
+		}
+
+		// Finally we will return server response
+		return resp
+	} catch (e) {
+		console.log(e)
+
+		return { status: { success: false, message: 'Problem has happened while contacting with server' } }
+	}
+}
+
+/**
+ * This function tries to log user out.
+ * It checks if there is any problem in the process.
+ * If no, then it will dispatch null to the store and return response from the server.
+ * If there are some problems, then it will return response from the server.
+ * In case of inability to contact the server, it will return status object with message of it.
+ * @returns {Promise<IServerResp>} Response object
+ */
+export const signOutUser = async (): Promise<IServerResp> => {
+	try {
+		// Fetching server
+		const resp: IUserServerResp = await axios.post(logoutUrl)
+
+		// TODO: delete
+		console.log(resp)
+		//
+
+		// In case of success we will dispatch null to the state
+		if (resp.status.success) {
+			dispatch({ type: actionTypes.SET_USER, payload: null })
+		}
+
+		// Finally we will return server response
+		return resp
+	} catch (e) {
+		console.log(e)
+
+		return { status: { success: false, message: 'Problem has happened while contacting with server' } }
 	}
 }

@@ -10,7 +10,8 @@ type ISpendAction = {
 type SpendsState = ISpend[] | []
 
 interface ISpend {
-	_id: string
+	_id: Types.ObjectId
+	owner: Types.ObjectId
 	category: string
 	comment: string
 	cost: number
@@ -23,11 +24,14 @@ interface SpendsStateAction extends Action {
 }
 
 interface IUser {
-	_id: string
+	_id: Types.ObjectId
+	id: string
 	email: string
+	password: string
 	name: string
-	spends: string[]
+	spends: [] | Types.ObjectId[]
 }
+
 type TUserState = boolean | IUser
 
 type TSpendsState = ISpend[]
@@ -42,8 +46,9 @@ interface IRootState {
 	spends: TSpendsState
 }
 
-interface ISpendWithDate {
-	_id: string
+interface ISpend {
+	_id: Types.ObjectId
+	owner: Types.ObjectId
 	category: string
 	comment: string
 	cost: number
@@ -54,3 +59,18 @@ interface ISpendWithDate {
 type TAddDateToSpend = (spend: ISpend) => ISpendWithDate
 type TConvertIdToDate = (idString: string) => Date
 type TSpendsSplitter = (spendsArr: ISpend[]) => ISpendWithDate[][]
+
+interface IServerResp {
+	status: {
+		success: boolean
+		message: string
+	}
+}
+
+interface IUserServerResp extends IServerResp {
+	user?: IUser
+}
+
+interface ISpendServerResp extends IServerResp {
+	spends: ISpend[]
+}
