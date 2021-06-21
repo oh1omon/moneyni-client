@@ -2,6 +2,7 @@ import axios from 'axios'
 import { IServerResp, IUserServerResp } from '../../react-app-env'
 import { store } from '../../store/store'
 import * as actionTypes from '../../store/user/userAction'
+import { initializeSpendsState } from './spendsDispatcher'
 
 // API urls
 const registerUrl = '/api/auth/register'
@@ -21,10 +22,10 @@ const dispatch = store.dispatch
  * In case of inability to contact the server, it will return status object with message of it.
  * @returns {Promise<IServerResp>} Response object
  */
-export const initializeUserState = async (): Promise<IServerResp> => {
+export const initializeState = async (): Promise<IServerResp> => {
 	try {
 		// Fetching data
-		const resp: IUserServerResp = await axios.get(retrieveUrl)
+		const resp: IUserServerResp = await axios.get(retrieveUrl).then((r) => r.data)
 
 		// TODO: delete
 		console.log(resp)
@@ -33,6 +34,8 @@ export const initializeUserState = async (): Promise<IServerResp> => {
 		// In case of user logged in we will dispatch his object into store and return this user's object
 		if (resp.status.success) {
 			dispatch({ type: actionTypes.SET_USER, payload: resp.user })
+
+			initializeSpendsState(resp.user!.spends)
 
 			return resp
 		}
@@ -62,7 +65,7 @@ export const initializeUserState = async (): Promise<IServerResp> => {
 export const registerUser = async (newUserData: any): Promise<IServerResp> => {
 	try {
 		// Sending candidates object to the server
-		const resp: IUserServerResp = await axios.post(registerUrl, newUserData)
+		const resp: IUserServerResp = await axios.post(registerUrl, newUserData).then((r) => r.data)
 
 		// In case of success we will dispatch registered user to the state
 		if (resp.status.success) {
@@ -90,7 +93,7 @@ export const registerUser = async (newUserData: any): Promise<IServerResp> => {
 export const signInUser = async (user: any): Promise<IServerResp> => {
 	try {
 		// Sending login object to the server
-		const resp: IUserServerResp = await axios.post(loginUrl, user)
+		const resp: IUserServerResp = await axios.post(loginUrl, user).then((r) => r.data)
 
 		// TODO: delete
 		console.log(resp)
@@ -98,6 +101,7 @@ export const signInUser = async (user: any): Promise<IServerResp> => {
 
 		// In case of success we will dispatch logged in user to the state
 		if (resp.status.success) {
+			// console.log(resp.user)
 			dispatch({ type: actionTypes.SET_USER, payload: resp.user })
 		}
 
@@ -122,7 +126,7 @@ export const signInUser = async (user: any): Promise<IServerResp> => {
 export const update = async (updates: Record<string, unknown>): Promise<IServerResp> => {
 	try {
 		// Sending login object to the server
-		const resp: IUserServerResp = await axios.post(updateUrl, updates)
+		const resp: IUserServerResp = await axios.post(updateUrl, updates).then((r) => r.data)
 
 		// TODO: delete
 		console.log(resp)
@@ -153,7 +157,7 @@ export const update = async (updates: Record<string, unknown>): Promise<IServerR
 export const signOutUser = async (): Promise<IServerResp> => {
 	try {
 		// Fetching server
-		const resp: IUserServerResp = await axios.post(logoutUrl)
+		const resp: IUserServerResp = await axios.post(logoutUrl).then((r) => r.data)
 
 		// TODO: delete
 		console.log(resp)

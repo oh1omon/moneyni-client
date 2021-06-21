@@ -32,7 +32,7 @@ interface IUser {
 	spends: [] | Types.ObjectId[]
 }
 
-type TUserState = boolean | IUser
+type TUserState = IUser | null
 
 type TSpendsState = ISpend[]
 
@@ -65,8 +65,12 @@ interface IUserServerResp extends IServerResp {
 	user?: IUser
 }
 
+interface ISpendsServerResp extends IServerResp {
+	spends?: ISpend[]
+}
+
 interface ISpendServerResp extends IServerResp {
-	spends: ISpend[]
+	spends?: ISpend
 }
 
 interface ISpendWindowProps {

@@ -1,12 +1,11 @@
 import React, { ChangeEvent, MouseEvent, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { IFormObject } from '../../react-app-env'
+import { IFormObject, ISpendServerResp } from '../../react-app-env'
 import { addSpend } from '../../services/dispatchers/spendsDispatcher'
+import { update } from '../../services/dispatchers/userDispatcher'
 import Button from '../Button/Button'
 import Input from '../Input/Input'
 
-const AddSpend = () => {
-	const dispatch = useDispatch()
+const AddSpend = (): JSX.Element => {
 	const [inputs] = useState([
 		{ inputId: 'comment', inputType: 'text', activated: true },
 		{ inputId: 'cost', inputType: 'text', activated: true },
@@ -19,7 +18,7 @@ const AddSpend = () => {
 		setForm({ ...form, [e.target.name]: e.target.value })
 	}
 
-	const submitHandler = (e: MouseEvent<HTMLButtonElement>) => {
+	const submitHandler = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 		setErr([])
 		const validationResult: string[] = formValidator(form)
@@ -29,7 +28,11 @@ const AddSpend = () => {
 			return
 		}
 		console.log(form)
-		dispatch(addSpend(form))
+		const resp: ISpendServerResp = await addSpend(form)
+
+		if (resp.status.success) {
+			update({ spends: resp.spends!._id })
+		}
 	}
 
 	const formValidator = (formObject: IFormObject) => {
@@ -56,10 +59,9 @@ const AddSpend = () => {
 					onChange={(e: ChangeEvent<HTMLSelectElement>) => {
 						changeHandler(e)
 					}}
+					defaultValue={'Select the right one'}
 				>
-					<option value='' selected>
-						Select the right one
-					</option>
+					{/* <option value=''>Select the right one</option> */}
 					<option value='Daily Needs'>Daily Needs</option>
 					<option value='Bad Habits'>Bad Habits</option>
 					<option value='Hygiene and Health'>Hygiene and Health</option>

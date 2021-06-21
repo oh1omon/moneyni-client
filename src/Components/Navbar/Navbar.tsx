@@ -4,7 +4,7 @@ import { AnalIcon } from '../../assets/icons/anal-icon'
 import { HomeIcon } from '../../assets/icons/home-icon'
 import { ProfileIcon } from '../../assets/icons/profile-icon'
 
-const Navbar = () => {
+const Navbar = (): JSX.Element => {
 	return (
 		<div className='fixed bottom-0 left-0 flex justify-center items-center rounded-t-2xl bg-gradient-to-t from-main-dark to-main-light w-full h-1/10'>
 			<ul className='w-4/5 h-4/5 bg-blue-300  flex flex-row justify-between items-center '>

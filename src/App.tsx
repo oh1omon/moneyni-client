@@ -8,13 +8,13 @@ import Home from './Components/Home/Home'
 import Me from './Components/Me/Me'
 import Navbar from './Components/Navbar/Navbar'
 import SignInUp from './Components/SignInUp/SignInUp'
-import { IRootState, IUser } from './react-app-env'
-import { initializeUserState } from './services/dispatchers/userDispatcher'
+import { IRootState, TUserState } from './react-app-env'
+import { initializeState } from './services/dispatchers/userDispatcher'
 
 const App = (): JSX.Element => {
-	const user: boolean | IUser = useSelector((state: IRootState) => state.user)
+	const user: TUserState = useSelector((state: IRootState) => state.user)
 	useEffect(() => {
-		initializeUserState()
+		initializeState()
 	}, [])
 	return (
 		<BrowserRouter>

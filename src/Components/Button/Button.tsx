@@ -1,7 +1,7 @@
 import React from 'react'
 import { IButtonProps } from '../../react-app-env'
 
-const Button = ({ buttonText, clickHandler }: IButtonProps) => {
+const Button = ({ buttonText, clickHandler }: IButtonProps): JSX.Element => {
 	return (
 		<button
 			className='p-2 border border-main-yellow w-3/4 rounded-md bg-main-dark text-main-yellow hover:bg-main-light'

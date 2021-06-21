@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { IServerResp, ISpendServerResp } from '../../react-app-env'
+import { IServerResp, ISpendServerResp, ISpendsServerResp } from '../../react-app-env'
 import * as actionTypes from '../../store/spends/spendsActions'
 import { store } from '../../store/store'
 
@@ -18,10 +18,10 @@ const dispatch = store.dispatch
  * In case of inability to contact the server, it will return status object with message of it.
  * @returns {Promise<IServerResp>} Response object
  */
-export const initializeSpendsState = async (spendsArr: string[]): Promise<IServerResp> => {
+export const initializeSpendsState = async (idArr: string[]): Promise<IServerResp> => {
 	try {
 		// Fetching data
-		const resp: ISpendServerResp = await axios.post(getUrl, spendsArr)
+		const resp: ISpendsServerResp = await axios.post(getUrl, { idArr }).then((r) => r.data)
 
 		// TODO: delete
 		console.log(resp)
@@ -58,7 +58,7 @@ export const initializeSpendsState = async (spendsArr: string[]): Promise<IServe
 export const addSpend = async (newSpend: any): Promise<IServerResp> => {
 	try {
 		// Sending spend object to the server
-		const resp: ISpendServerResp = await axios.post(addUrl, newSpend)
+		const resp: ISpendServerResp = await axios.post(addUrl, newSpend).then((r) => r.data)
 
 		// TODO: delete
 		console.log(resp)
@@ -66,7 +66,7 @@ export const addSpend = async (newSpend: any): Promise<IServerResp> => {
 
 		// In case of success we will dispatch spend to the store and return response
 		if (resp.status.success) {
-			dispatch({ type: actionTypes.ADD_SPEND, payload: resp.spends })
+			dispatch({ type: actionTypes.ADD_SPEND, payload: [resp.spends] })
 		}
 
 		return resp

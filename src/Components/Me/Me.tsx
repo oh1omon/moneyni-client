@@ -1,7 +1,7 @@
 import React, { MouseEvent } from 'react'
 import { signOutUser } from '../../services/dispatchers/userDispatcher'
 
-const Me = () => {
+const Me = (): JSX.Element => {
 	const clickHandler = (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 		signOutUser()

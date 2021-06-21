@@ -4,7 +4,7 @@ import { IRootState, ISpendsState, ISpendWithDate } from '../../react-app-env'
 import { spendSplitter } from '../../services/logic/spendsWorker'
 import SpendWindow from '../SpendWindow/SpendWindow'
 
-const Spends = () => {
+const Spends = (): JSX.Element => {
 	const spendsWODate: ISpendsState = useSelector((state: IRootState) => state.spends)
 	const spendsArr = spendSplitter(spendsWODate)
 	return (

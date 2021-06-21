@@ -4,7 +4,7 @@ import { registerUser, signInUser } from '../../services/dispatchers/userDispatc
 import Button from '../Button/Button'
 import Input from '../Input/Input'
 
-const SignInUp = () => {
+const SignInUp = (): JSX.Element => {
 	const [signIn, setSignIn] = useState(false)
 	const [inputs, setInputs] = useState([
 		{ inputId: 'email', inputType: 'email', activated: true },
