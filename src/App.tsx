@@ -8,7 +8,7 @@ import Home from './Components/Home/Home'
 import Me from './Components/Me/Me'
 import Navbar from './Components/Navbar/Navbar'
 import SignInUp from './Components/SignInUp/SignInUp'
-import { initializeUserState } from './dispatchers/userDispatcher'
+import { initializeUserState } from './services/dispatchers/userDispatcher'
 import { IRootState, IUser } from './react-app-env'
 
 const App = () => {

@@ -46,13 +46,7 @@ interface IRootState {
 	spends: TSpendsState
 }
 
-interface ISpend {
-	_id: Types.ObjectId
-	owner: Types.ObjectId
-	category: string
-	comment: string
-	cost: number
-	currency: string
+interface ISpendWithDate extends ISpend {
 	date: Date
 }
 

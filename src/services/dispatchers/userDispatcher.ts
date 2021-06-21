@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { IServerResp, IUserServerResp } from '../react-app-env'
-import * as actionTypes from '../store/user/userAction'
+import { IServerResp, IUserServerResp } from '../../react-app-env'
+import * as actionTypes from '../../store/user/userAction'
 
 // API urls
 const registerUrl = '/api/auth/register'

@@ -1,33 +1,33 @@
-import React from 'react';
-import { ISpendWithDate } from '../../logic/spendsWorker';
+import React from 'react'
+import { ISpendWithDate } from '../../services/logic/spendsWorker'
 
 interface ISpendWindowProps {
-    spendsArr: ISpendWithDate[];
+	spendsArr: ISpendWithDate[]
 }
 
 const SpendWindow = ({ spendsArr }: ISpendWindowProps) => {
-    return (
-        <li className="flex justify-center items-center bg-gradient-to-br from-main-light to-main-dark rounded-tl-2xl rounded-tr-100px rounded-br-2xl rounded-bl-100px mb-10">
-            <div className="w-2/3 h-2/3 text-main-yellow">
-                <p className="pt-2">{`${spendsArr[0].date.getDate()}/${spendsArr[0].date.getMonth()+1}`}</p>
-                <ul className="w-full h-auto my-7">
-                    {spendsArr.map((spend) => (
-                        <li className="w-full flex justify-between items-center mb-2">
-                            <div>
-                                <p>PH</p>
-                            </div>
-                            <div>
-                                <p className="font-light">{spend.category}</p>
-                            </div>
-                            <div>
-                                <p className="font-bold">{`${spend.cost} ${spend.currency}`}</p>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </li>
-    );
-};
+	return (
+		<li className='flex justify-center items-center bg-gradient-to-br from-main-light to-main-dark rounded-tl-2xl rounded-tr-100px rounded-br-2xl rounded-bl-100px mb-10'>
+			<div className='w-2/3 h-2/3 text-main-yellow'>
+				<p className='pt-2'>{`${spendsArr[0].date.getDate()}/${spendsArr[0].date.getMonth() + 1}`}</p>
+				<ul className='w-full h-auto my-7'>
+					{spendsArr.map((spend) => (
+						<li className='w-full flex justify-between items-center mb-2'>
+							<div>
+								<p>PH</p>
+							</div>
+							<div>
+								<p className='font-light'>{spend.category}</p>
+							</div>
+							<div>
+								<p className='font-bold'>{`${spend.cost} ${spend.currency}`}</p>
+							</div>
+						</li>
+					))}
+				</ul>
+			</div>
+		</li>
+	)
+}
 
-export default SpendWindow;
+export default SpendWindow

@@ -1,8 +1,9 @@
-import { ISpendWithDate, TAddDateToSpend, TConvertIdToDate, TSpendsSplitter } from '../react-app-env'
+import { ISpendWithDate, TAddDateToSpend, TConvertIdToDate, TSpendsSplitter } from '../../react-app-env'
 
 export const addDateToSpend: TAddDateToSpend = (spend) => {
 	return {
 		_id: spend._id,
+		owner: spend.owner,
 		category: spend.category,
 		comment: spend.comment,
 		cost: spend.cost,
