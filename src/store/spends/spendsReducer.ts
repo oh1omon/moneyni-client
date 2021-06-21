@@ -1,7 +1,7 @@
-import { SpendsStateAction, TSpendsState } from '../../react-app-env'
+import { ISpendsStateAction, TSpendsState } from '../../react-app-env'
 import * as actionTypes from './spendsActions'
 
-export const spendsReducer = (state: TSpendsState = [], action: SpendsStateAction): TSpendsState => {
+export const spendsReducer = (state: TSpendsState = [], action: ISpendsStateAction): TSpendsState => {
 	switch (action.type) {
 		case actionTypes.SET_SPENDS:
 			return action.payload

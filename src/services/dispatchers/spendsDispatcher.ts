@@ -1,14 +1,14 @@
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
 import { IServerResp, ISpendServerResp } from '../../react-app-env'
 import * as actionTypes from '../../store/spends/spendsActions'
+import { store } from '../../store/store'
 
 // API urls
 const getUrl = '/api/spends'
 const addUrl = '/api/spends/add'
 
 // Creating dispatch statement
-const dispatch = useDispatch()
+const dispatch = store.dispatch
 
 /**
  * This function tries to initialize spends state.

@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
 import { IServerResp, IUserServerResp } from '../../react-app-env'
+import { store } from '../../store/store'
 import * as actionTypes from '../../store/user/userAction'
 
 // API urls
@@ -11,7 +11,7 @@ const retrieveUrl = '/api/user/retrieve'
 const updateUrl = '/api/user/update'
 
 // Creating dispatch statement
-const dispatch = useDispatch()
+const dispatch = store.dispatch
 
 /**
  * This function is checking if user is logged in or not.
