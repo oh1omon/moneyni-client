@@ -1,17 +1,11 @@
-import { applyMiddleware, combineReducers, createStore, Store } from 'redux';
-import { userReducer } from './user/userReducer';
-import thunk from 'redux-thunk';
-import { UserState } from './user/userTypes';
-import { SpendsState } from './spends/spendsTypes';
-import { spendsReducer } from './spends/spendsReducer';
+import { combineReducers, createStore, Store } from 'redux'
+import { IRootState } from '../react-app-env'
+import { spendsReducer } from './spends/spendsReducer'
+import { userReducer } from './user/userReducer'
 
 export const rootReducer = combineReducers({
-    user: userReducer,
-    spends: spendsReducer,
-});
-export type RootState = { user: UserState; spends: SpendsState };
+	user: userReducer,
+	spends: spendsReducer,
+})
 
-export const store: Store<RootState> = createStore(
-    rootReducer,
-    applyMiddleware(thunk)
-);
+export const store: Store<IRootState> = createStore(rootReducer)
