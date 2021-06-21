@@ -1,19 +1,10 @@
 import React, { ChangeEvent, MouseEvent, useState } from 'react'
-import Input from '../Input/Input'
-import { useDispatch } from 'react-redux'
+import { IFormObject, IValRes } from '../../react-app-env'
 import { registerUser, signInUser } from '../../services/dispatchers/userDispatcher'
 import Button from '../Button/Button'
-
-interface IFormObject {
-	email?: string
-	name?: string
-	password?: string
-}
-
-type IValRes = string[]
+import Input from '../Input/Input'
 
 const SignInUp = () => {
-	const dispatch = useDispatch()
 	const [signIn, setSignIn] = useState(false)
 	const [inputs, setInputs] = useState([
 		{ inputId: 'email', inputType: 'email', activated: true },
@@ -51,7 +42,7 @@ const SignInUp = () => {
 			return
 		}
 		console.log(form)
-		signIn ? dispatch(signInUser(form)) : dispatch(registerUser(form))
+		signIn ? signInUser(form) : registerUser(form)
 	}
 
 	const formValidator = (formObject: IFormObject) => {

@@ -7,7 +7,7 @@ type ISpendAction = {
 	spending: ISpending
 }
 
-type SpendsState = ISpend[] | []
+type ISpendsState = ISpend[] | []
 
 interface ISpend {
 	_id: Types.ObjectId
@@ -18,7 +18,7 @@ interface ISpend {
 	currency: string
 }
 
-interface SpendsStateAction extends Action {
+interface ISpendsStateAction extends Action {
 	type: string
 	payload: TSpendsState
 }
@@ -67,4 +67,35 @@ interface IUserServerResp extends IServerResp {
 
 interface ISpendServerResp extends IServerResp {
 	spends: ISpend[]
+}
+
+interface ISpendWindowProps {
+	spendsArr: ISpendWithDate[]
+}
+
+interface IInputProps {
+	inputType: string
+	inputId: string
+	changeHandler: (e: ChangeEvent<HTMLInputElement>) => void
+	err?: boolean
+}
+
+interface IFormObject {
+	email?: string
+	name?: string
+	password?: string
+}
+
+type IValRes = string[]
+
+interface IButtonProps {
+	buttonText: string
+	clickHandler: (e: MouseEvent<HTMLButtonElement>) => void
+}
+
+interface IFormObject {
+	category?: string
+	comment?: string
+	cost?: number
+	currency?: string
 }

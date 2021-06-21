@@ -1,9 +1,5 @@
 import React from 'react'
-import { ISpendWithDate } from '../../services/logic/spendsWorker'
-
-interface ISpendWindowProps {
-	spendsArr: ISpendWithDate[]
-}
+import { ISpendWindowProps } from '../../react-app-env'
 
 const SpendWindow = ({ spendsArr }: ISpendWindowProps) => {
 	return (
@@ -12,7 +8,7 @@ const SpendWindow = ({ spendsArr }: ISpendWindowProps) => {
 				<p className='pt-2'>{`${spendsArr[0].date.getDate()}/${spendsArr[0].date.getMonth() + 1}`}</p>
 				<ul className='w-full h-auto my-7'>
 					{spendsArr.map((spend) => (
-						<li className='w-full flex justify-between items-center mb-2'>
+						<li className='w-full flex justify-between items-center mb-2' key={spend._id}>
 							<div>
 								<p>PH</p>
 							</div>

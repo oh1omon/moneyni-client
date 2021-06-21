@@ -1,19 +1,13 @@
 import React, { ChangeEvent, MouseEvent, useState } from 'react'
-import Input from '../Input/Input'
 import { useDispatch } from 'react-redux'
+import { IFormObject } from '../../react-app-env'
 import { addSpend } from '../../services/dispatchers/spendsDispatcher'
 import Button from '../Button/Button'
-
-interface IFormObject {
-	category?: string
-	comment?: string
-	cost?: number
-	currency?: string
-}
+import Input from '../Input/Input'
 
 const AddSpend = () => {
 	const dispatch = useDispatch()
-	const [inputs, setInputs] = useState([
+	const [inputs] = useState([
 		{ inputId: 'comment', inputType: 'text', activated: true },
 		{ inputId: 'cost', inputType: 'text', activated: true },
 		{ inputId: 'currency', inputType: 'text', activated: false },
@@ -55,10 +49,7 @@ const AddSpend = () => {
 	}
 	return (
 		<div className='w-screen h-screen flex justify-center items-center bg-main-dark'>
-			<form
-				className='flex flex-col justify-between items-center w-3/4 h-3/5'
-				// onSubmit={submitHandler}
-			>
+			<form className='flex flex-col justify-between items-center w-3/4 h-3/5'>
 				<select
 					name='category'
 					id='category'
@@ -92,9 +83,6 @@ const AddSpend = () => {
 					))}
 
 				<Button buttonText={'Add Spend'} clickHandler={submitHandler} />
-				{/*<button className="p-1 border border-black" type="submit">*/}
-				{/*    Add Spendi*/}
-				{/*</button>*/}
 			</form>
 		</div>
 	)
