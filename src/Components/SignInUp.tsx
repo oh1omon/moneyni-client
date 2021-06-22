@@ -6,12 +6,13 @@ import Input from './Input'
 
 const inputFields = [
 	{ inputId: 'email', inputType: 'email', activated: true },
-	{ inputId: 'name', inputType: 'text', activated: true },
+	{ inputId: 'name', inputType: 'text', activated: false },
 	{ inputId: 'password', inputType: 'password', activated: true },
+	{ inputId: 'salary', inputType: 'tel', activated: false },
 ]
 
 const SignInUp = (): JSX.Element => {
-	const [signIn, setSignIn] = useState(false)
+	const [signIn, setSignIn] = useState(true)
 	const [inputs, setInputs] = useState(inputFields)
 	const [form, setForm] = useState<IFormObject>({})
 	const [err, setErr] = useState<IValRes>([])
@@ -20,17 +21,45 @@ const SignInUp = (): JSX.Element => {
 		setForm({ ...form, [e.target.name]: e.target.value })
 	}
 
+	/**
+	 * Function controls which input fields to show to the user
+	 * Another words, it toggles name input field on or off
+	 */
 	const signInChangeHandler = () => {
+		//Toggling new account state
 		setSignIn(!signIn)
-		const nameInputIndex = inputs.findIndex((input) => input.inputId === 'name')!
-		const nameInput = inputs[nameInputIndex]
-		nameInput.activated = !nameInput.activated
-		inputs.splice(nameInputIndex, 1, nameInput)
-		setInputs([...inputs])
-		const prevForm: IFormObject = form
+
+		//Getting index of name input object in the inputs state
+		const getNameInputIndex = (inputName: string) => inputs.findIndex((i) => i.inputId === inputName)
+
+		//Input names, that are needed only for Sign Up
+		const signUpInputs = ['name', 'salary']
+
+		//We are iterating Sign Up needed inputs and toggling them on and off
+		for (let i = 0; i < signUpInputs.length; i++) {
+			const inputIndex = getNameInputIndex(signUpInputs[i])
+
+			//Creating a new name input field based on the one in the state
+			const input = inputs[inputIndex]
+
+			//Toggling the input's activated value
+			input.activated = !input.activated
+
+			//Here we changing old name input field version with new, toggled one
+			inputs.splice(inputIndex, 1, input)
+
+			//Updating the state
+			setInputs([...inputs])
+		}
+
+		//If we are toggling from Sign Up to Sign In, then we need to delete those fields from the form state
+		const prevForm = form
 		if (prevForm.name) {
 			delete prevForm['name']
+			delete prevForm['salary']
 		}
+
+		//Updating new form state
 		setForm(prevForm)
 	}
 
@@ -38,12 +67,11 @@ const SignInUp = (): JSX.Element => {
 		e.preventDefault()
 		setErr([])
 		const validationResult: IValRes = formValidator(form)
-		console.log(validationResult)
 		if (validationResult.length > 0) {
 			setErr(validationResult)
 			return
 		}
-		console.log(form)
+		console.log(signIn)
 		signIn ? signInUser(form) : registerUser(form)
 	}
 

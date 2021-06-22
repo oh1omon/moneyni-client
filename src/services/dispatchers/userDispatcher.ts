@@ -67,6 +67,10 @@ export const registerUser = async (newUserData: any): Promise<IServerResp> => {
 		// Sending candidates object to the server
 		const resp: IUserServerResp = await axios.post(registerUrl, newUserData).then((r) => r.data)
 
+		// TODO: delete
+		console.log(resp)
+		//
+
 		// In case of success we will dispatch registered user to the state
 		if (resp.status.success) {
 			dispatch({ type: actionTypes.SET_USER, payload: resp.user })

@@ -91,6 +91,7 @@ interface IFormObject {
 	email?: string
 	name?: string
 	password?: string
+	salary?: number
 }
 
 type IValRes = string[]
