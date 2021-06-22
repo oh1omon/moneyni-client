@@ -103,6 +103,9 @@ export const signInUser = async (user: any): Promise<IServerResp> => {
 		if (resp.status.success) {
 			// console.log(resp.user)
 			dispatch({ type: actionTypes.SET_USER, payload: resp.user })
+
+			//Fetching users spends
+			initializeSpendsState(resp.user!.spends)
 		}
 
 		// Finally we will return server response
