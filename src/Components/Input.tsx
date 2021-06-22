@@ -16,6 +16,9 @@ const Input = ({ inputType, inputId, changeHandler, err = false }: IInputProps):
 				name={inputId}
 				id={inputId}
 				placeholder={inputId}
+				onKeyPress={(e) => {
+					inputType === 'tel' && !/[0-9]/.test(e.key) && e.preventDefault()
+				}}
 				onChange={(e: ChangeEvent<HTMLInputElement>) => changeHandler(e)}
 			/>
 		</div>

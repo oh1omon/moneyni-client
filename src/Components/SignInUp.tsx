@@ -71,7 +71,6 @@ const SignInUp = (): JSX.Element => {
 			setErr(validationResult)
 			return
 		}
-		console.log(signIn)
 		signIn ? signInUser(form) : registerUser(form)
 	}
 

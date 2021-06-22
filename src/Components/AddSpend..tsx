@@ -6,34 +6,65 @@ import { update } from '../services/dispatchers/userDispatcher'
 import Button from './Button'
 import Input from './Input'
 
+// Fields that are used for signing in and up
 const inputFields = [
 	{ inputId: 'comment', inputType: 'text', activated: true },
-	{ inputId: 'cost', inputType: 'text', activated: true },
+	{ inputId: 'cost', inputType: 'tel', activated: true },
 	{ inputId: 'currency', inputType: 'text', activated: false },
 ]
 
 const AddSpend = (): JSX.Element => {
+	// Fetching user form the global state
 	const user = useSelector((store: IRootState) => store.user)
+
+	// Initing inputs
 	const [inputs] = useState(inputFields)
+
+	// Creating state for form
 	const [form, setForm] = useState<IFormObject>({ currency: '€' })
+
+	// Creating state for error
 	const [err, setErr] = useState<string[]>([])
 
+	/**
+	 * Handler for input changes
+	 * @param e
+	 */
 	const changeHandler = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 		setForm({ ...form, [e.target.name]: e.target.value })
 	}
 
+	/**
+	 * Handler for submitting form to the API.
+	 * It firstly checks the form.
+	 * Then it checks if the user is signing in or up.
+	 * Then depending on upper condition it will dispatch form to the right API route
+	 * @param e
+	 * @returns
+	 */
 	const submitHandler = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
+
+		// Cleaning input errors array
 		setErr([])
+
+		// Getting validation result
 		const validationResult: string[] = formValidator(form)
+
+		// TODO: delete
 		console.log(validationResult)
+		//
+
+		// If we have at least one problem with the user's input, we are stopping the function and setting input errors array
 		if (validationResult.length > 0) {
 			setErr(validationResult)
 			return
 		}
-		console.log(form)
+
+		// If form has passed validation, then we are submitting it to the dispatcher.
 		const resp: ISpendServerResp = await addSpend(form)
 
+		// If adding is successful, then we will update user document too
 		if (resp.status.success) {
 			update({ spends: resp.spends!._id, salary: { actual: user!.salary.actual - resp.spends!.cost } })
 		}
@@ -72,7 +103,7 @@ const AddSpend = (): JSX.Element => {
 					<option value='Daily Needs'>Daily Needs</option>
 					<option value='Bad Habits'>Bad Habits</option>
 					<option value='Hygiene and Health'>Hygiene and Health</option>
-					<option value='Rent'>Rent</option>
+					<option value='Housing'>Housing</option>
 					<option value='Clothing and Cosmetics'>Clothing and Cosmetics</option>
 					<option value='Travel'>Travel</option>
 					<option value='Food'>Food</option>
