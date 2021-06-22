@@ -13,6 +13,11 @@ const inputFields = [
 	{ inputId: 'currency', inputType: 'text', activated: false },
 ]
 
+const errFields = [
+	{ field: 'cost', message: 'Please provide cost' },
+	{ field: 'category', message: 'Please provide category' },
+]
+
 const AddSpend = (): JSX.Element => {
 	// Fetching user form the global state
 	const user = useSelector((store: IRootState) => store.user)
@@ -131,6 +136,7 @@ const AddSpend = (): JSX.Element => {
 					{statusMessage.success
 						? statusMessage.message
 						: statusMessage.message.split(' ').slice(4).join(' ')}
+					{err.length > 0 && errFields.filter((e) => e.field === err[0])[0].message}
 				</p>
 
 				<Button buttonText={'Add Spend'} clickHandler={submitHandler} />
