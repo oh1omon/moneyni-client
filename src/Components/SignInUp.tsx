@@ -11,6 +11,13 @@ const inputFields = [
 	{ inputId: 'salary', inputType: 'tel', activated: false },
 ]
 
+const errFields = [
+	{ field: 'email', message: 'Please provide your email' },
+	{ field: 'password', message: 'Please provide your password' },
+	{ field: 'name', message: 'Please provide your name' },
+	{ field: 'salary', message: 'Please provide your salary' },
+]
+
 const SignInUp = (): JSX.Element => {
 	const [signIn, setSignIn] = useState(true)
 	const [inputs, setInputs] = useState(inputFields)
@@ -97,6 +104,9 @@ const SignInUp = (): JSX.Element => {
 		if (!signIn && !formObject.name) {
 			err.push('name')
 		}
+		if (!signIn && !formObject.salary) {
+			err.push('salary')
+		}
 
 		return err
 	}
@@ -121,6 +131,7 @@ const SignInUp = (): JSX.Element => {
 					{statusMessage.success
 						? statusMessage.message
 						: statusMessage.message.split(' ').slice(4).join(' ')}
+					{err.length > 0 && errFields.filter((e) => e.field === err[0])[0].message}
 				</p>
 			</form>
 		</div>
