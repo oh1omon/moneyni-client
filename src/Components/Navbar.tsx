@@ -1,8 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { AnalIcon } from '../../assets/icons/anal-icon'
-import { HomeIcon } from '../../assets/icons/home-icon'
-import { ProfileIcon } from '../../assets/icons/profile-icon'
+import { AnalIcon } from '../assets/icons/anal-icon'
+import { HomeIcon } from '../assets/icons/home-icon'
+import { ProfileIcon } from '../assets/icons/profile-icon'
 
 const Navbar = (): JSX.Element => {
 	return (

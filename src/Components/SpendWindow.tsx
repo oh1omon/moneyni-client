@@ -1,5 +1,5 @@
 import React from 'react'
-import { ISpendWindowProps } from '../../react-app-env'
+import { ISpendWindowProps } from '../react-app-env'
 
 const SpendWindow = ({ spendsArr }: ISpendWindowProps): JSX.Element => {
 	return (

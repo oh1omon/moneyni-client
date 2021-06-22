@@ -1,5 +1,5 @@
 import React from 'react'
-import { IButtonProps } from '../../react-app-env'
+import { IButtonProps } from '../react-app-env'
 
 const Button = ({ buttonText, clickHandler }: IButtonProps): JSX.Element => {
 	return (

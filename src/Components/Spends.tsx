@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { IRootState, ISpendsState, ISpendWithDate } from '../../react-app-env'
-import { spendSplitter } from '../../services/logic/spendsWorker'
-import SpendWindow from '../SpendWindow/SpendWindow'
+import { IRootState, ISpendsState, ISpendWithDate } from '../react-app-env'
+import { spendSplitter } from '../services/logic/spendsWorker'
+import SpendWindow from './SpendWindow'
 
 const Spends = (): JSX.Element => {
 	const spendsWODate: ISpendsState = useSelector((state: IRootState) => state.spends)

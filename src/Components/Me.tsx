@@ -1,5 +1,5 @@
 import React, { MouseEvent } from 'react'
-import { signOutUser } from '../../services/dispatchers/userDispatcher'
+import { signOutUser } from '../services/dispatchers/userDispatcher'
 
 const Me = (): JSX.Element => {
 	const clickHandler = (e: MouseEvent<HTMLButtonElement>) => {

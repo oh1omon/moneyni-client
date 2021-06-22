@@ -1,9 +1,9 @@
 import React, { ChangeEvent, MouseEvent, useState } from 'react'
-import { IFormObject, ISpendServerResp } from '../../react-app-env'
-import { addSpend } from '../../services/dispatchers/spendsDispatcher'
-import { update } from '../../services/dispatchers/userDispatcher'
-import Button from '../Button/Button'
-import Input from '../Input/Input'
+import { IFormObject, ISpendServerResp } from '../react-app-env'
+import { addSpend } from '../services/dispatchers/spendsDispatcher'
+import { update } from '../services/dispatchers/userDispatcher'
+import Button from './Button'
+import Input from './Input'
 
 const AddSpend = (): JSX.Element => {
 	const [inputs] = useState([
@@ -60,8 +60,11 @@ const AddSpend = (): JSX.Element => {
 						changeHandler(e)
 					}}
 					defaultValue={'Select the right one'}
+					className={`border-2 rounded-md bg-main-dark p-2 transition duration-300 ease-in-out text-main-yellow   ${
+						err.includes('category') ? 'border-main-err' : 'border-transparent'
+					}`}
 				>
-					{/* <option value=''>Select the right one</option> */}
+					<option disabled>Select the right one</option>
 					<option value='Daily Needs'>Daily Needs</option>
 					<option value='Bad Habits'>Bad Habits</option>
 					<option value='Hygiene and Health'>Hygiene and Health</option>

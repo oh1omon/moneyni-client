@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react'
-import { IInputProps } from '../../react-app-env'
+import { IInputProps } from '../react-app-env'
 
 const Input = ({ inputType, inputId, changeHandler, err = false }: IInputProps): JSX.Element => {
 	return (

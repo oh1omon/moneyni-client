@@ -1,8 +1,8 @@
 import React, { ChangeEvent, MouseEvent, useState } from 'react'
-import { IFormObject, IValRes } from '../../react-app-env'
-import { registerUser, signInUser } from '../../services/dispatchers/userDispatcher'
-import Button from '../Button/Button'
-import Input from '../Input/Input'
+import { IFormObject, IValRes } from '../react-app-env'
+import { registerUser, signInUser } from '../services/dispatchers/userDispatcher'
+import Button from './Button'
+import Input from './Input'
 
 const SignInUp = (): JSX.Element => {
 	const [signIn, setSignIn] = useState(false)

@@ -1,5 +1,5 @@
 import React from 'react'
-import Spends from '../Spends/Spends'
+import Spends from './Spends'
 
 const Home = (): JSX.Element => {
 	return (
