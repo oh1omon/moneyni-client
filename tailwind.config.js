@@ -7,7 +7,7 @@ module.exports = {
 		colors: {
 			main: {
 				dark: '#425C5A',
-				light: '#91ADAB',
+				light: '#5F7A78',
 				yellow: '#FFCEA2',
 				yellowLight: 'rgba(255,206,162,0.5)',
 				err: '#f87171',
@@ -20,6 +20,8 @@ module.exports = {
 				'9/10': '90%',
 			},
 			height: {
+				'screen-1/2': '50vh',
+				'screen-1/10': '10vh',
 				'1/10': '10%',
 				'9/10': '90%',
 			},

@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router'
 import { BrowserRouter, Redirect } from 'react-router-dom'
 import AddSpend from './Components/AddSpend.'
 import Analytics from './Components/Analytics'
+import { Header } from './Components/Header'
 import Home from './Components/Home'
 import Me from './Components/Me'
 import Navbar from './Components/Navbar'
@@ -21,7 +22,11 @@ const App = (): JSX.Element => {
 	}, [])
 	return (
 		<BrowserRouter>
-			{user && <Navbar />}
+			{user && (
+				<>
+					<Header /> <Navbar />
+				</>
+			)}
 			<Switch>
 				<Route path={'/'} exact>
 					{user ? <Redirect to={'/home'} /> : <SignInUp />}
