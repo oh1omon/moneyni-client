@@ -26,6 +26,10 @@ const AddSpend = (): JSX.Element => {
 	// Creating state for error
 	const [err, setErr] = useState<string[]>([])
 
+	//Error message to be print to user
+	//By default it is empty
+	const [statusMessage, setStatusMessage] = useState({ success: false, message: '' })
+
 	/**
 	 * Handler for input changes
 	 * @param e
@@ -51,10 +55,6 @@ const AddSpend = (): JSX.Element => {
 		// Getting validation result
 		const validationResult: string[] = formValidator(form)
 
-		// TODO: delete
-		console.log(validationResult)
-		//
-
 		// If we have at least one problem with the user's input, we are stopping the function and setting input errors array
 		if (validationResult.length > 0) {
 			setErr(validationResult)
@@ -64,9 +64,13 @@ const AddSpend = (): JSX.Element => {
 		// If form has passed validation, then we are submitting it to the dispatcher.
 		const resp: ISpendServerResp = await addSpend(form)
 
+		const { status, spends } = resp
+
+		setStatusMessage({ success: status.success, message: status.message })
+
 		// If adding is successful, then we will update user document too
-		if (resp.status.success) {
-			update({ spends: resp.spends!._id, salary: { actual: user!.salary.actual - resp.spends!.cost } })
+		if (status.success) {
+			update({ spends: spends!._id, salary: { actual: user!.salary.actual - spends!.cost } })
 		}
 	}
 
@@ -122,6 +126,12 @@ const AddSpend = (): JSX.Element => {
 							err={err.includes(input.inputId)}
 						/>
 					))}
+
+				<p className={`${statusMessage.success ? 'text-main-yellow' : 'text-main-err'} text-sm p-2`}>
+					{statusMessage.success
+						? statusMessage.message
+						: statusMessage.message.split(' ').slice(4).join(' ')}
+				</p>
 
 				<Button buttonText={'Add Spend'} clickHandler={submitHandler} />
 			</form>

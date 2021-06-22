@@ -17,6 +17,10 @@ const SignInUp = (): JSX.Element => {
 	const [form, setForm] = useState<IFormObject>({})
 	const [err, setErr] = useState<IValRes>([])
 
+	//Error message to be print to user
+	//By default it is empty
+	const [statusMessage, setStatusMessage] = useState({ success: false, message: '' })
+
 	const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
 		setForm({ ...form, [e.target.name]: e.target.value })
 	}
@@ -63,7 +67,7 @@ const SignInUp = (): JSX.Element => {
 		setForm(prevForm)
 	}
 
-	const submitHandler = (e: MouseEvent<HTMLButtonElement>) => {
+	const submitHandler = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 		setErr([])
 		const validationResult: IValRes = formValidator(form)
@@ -71,7 +75,9 @@ const SignInUp = (): JSX.Element => {
 			setErr(validationResult)
 			return
 		}
-		signIn ? signInUser(form) : registerUser(form)
+		const { status } = signIn ? await signInUser(form) : await registerUser(form)
+
+		setStatusMessage({ success: status.success, message: status.message })
 	}
 
 	const formValidator = (formObject: IFormObject) => {
@@ -110,7 +116,12 @@ const SignInUp = (): JSX.Element => {
 						/>
 					))}
 				<Button buttonText={signIn ? 'Sign In' : 'Sign Up'} clickHandler={submitHandler} />
-				<Input inputType={'checkbox'} inputId={'signIn'} changeHandler={signInChangeHandler} />
+				<Input inputType={'checkbox'} inputId={'Sign Up'} changeHandler={signInChangeHandler} />
+				<p className={`${statusMessage.success ? 'text-main-yellow' : 'text-main-err'} text-sm p-2`}>
+					{statusMessage.success
+						? statusMessage.message
+						: statusMessage.message.split(' ').slice(4).join(' ')}
+				</p>
 			</form>
 		</div>
 	)
