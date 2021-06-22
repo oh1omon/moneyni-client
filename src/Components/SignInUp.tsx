@@ -4,13 +4,15 @@ import { registerUser, signInUser } from '../services/dispatchers/userDispatcher
 import Button from './Button'
 import Input from './Input'
 
+const inputFields = [
+	{ inputId: 'email', inputType: 'email', activated: true },
+	{ inputId: 'name', inputType: 'text', activated: true },
+	{ inputId: 'password', inputType: 'password', activated: true },
+]
+
 const SignInUp = (): JSX.Element => {
 	const [signIn, setSignIn] = useState(false)
-	const [inputs, setInputs] = useState([
-		{ inputId: 'email', inputType: 'email', activated: true },
-		{ inputId: 'name', inputType: 'text', activated: true },
-		{ inputId: 'password', inputType: 'password', activated: true },
-	])
+	const [inputs, setInputs] = useState(inputFields)
 	const [form, setForm] = useState<IFormObject>({})
 	const [err, setErr] = useState<IValRes>([])
 

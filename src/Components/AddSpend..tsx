@@ -5,12 +5,14 @@ import { update } from '../services/dispatchers/userDispatcher'
 import Button from './Button'
 import Input from './Input'
 
+const inputFields = [
+	{ inputId: 'comment', inputType: 'text', activated: true },
+	{ inputId: 'cost', inputType: 'text', activated: true },
+	{ inputId: 'currency', inputType: 'text', activated: false },
+]
+
 const AddSpend = (): JSX.Element => {
-	const [inputs] = useState([
-		{ inputId: 'comment', inputType: 'text', activated: true },
-		{ inputId: 'cost', inputType: 'text', activated: true },
-		{ inputId: 'currency', inputType: 'text', activated: false },
-	])
+	const [inputs] = useState(inputFields)
 	const [form, setForm] = useState<IFormObject>({ currency: '€' })
 	const [err, setErr] = useState<string[]>([])
 
