@@ -157,7 +157,7 @@ export const update = async (updates: Record<string, unknown>): Promise<IServerR
 export const signOutUser = async (): Promise<IServerResp> => {
 	try {
 		// Fetching server
-		const resp: IUserServerResp = await axios.post(logoutUrl).then((r) => r.data)
+		const resp: IUserServerResp = await axios.get(logoutUrl).then((r) => r.data)
 
 		// TODO: delete
 		console.log(resp)

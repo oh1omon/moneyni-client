@@ -12,21 +12,30 @@ import { IRootState, TUserState } from './react-app-env'
 import { initializeState } from './services/dispatchers/userDispatcher'
 
 const App = (): JSX.Element => {
+	//Getting user from global state
 	const user: TUserState = useSelector((state: IRootState) => state.user)
+
+	//Fetching user object and its spends from server
 	useEffect(() => {
 		initializeState()
 	}, [])
 	return (
 		<BrowserRouter>
-			{user ? <Navbar /> : false}
+			{user && <Navbar />}
 			<Switch>
-				<Route path={'/'} exact={true}>
+				<Route path={'/'} exact>
 					{user ? <Redirect to={'/home'} /> : <SignInUp />}
 				</Route>
-				<Route path={'/home'}>{user ? <Home /> : <Redirect to={'/'} />}</Route>
-				<Route path={'/addspend'}>{user ? <AddSpend /> : <Redirect to={'/'} />}</Route>
-				<Route path={'/analytics'}>{user ? <Analytics /> : <Redirect to={'/'} />}</Route>
-				<Route path={'/me'}>{user ? <Me /> : <Redirect to={'/'} />}</Route>
+				{user ? (
+					<>
+						<Route path={'/home'} component={Home} />
+						<Route path={'/addspend'} component={AddSpend} />
+						<Route path={'/analytics'} component={Analytics} />
+						<Route path={'/me'} component={Me} />
+					</>
+				) : (
+					<Redirect to={'/'} />
+				)}
 			</Switch>
 		</BrowserRouter>
 	)
