@@ -1,5 +1,6 @@
 import React, { ChangeEvent, MouseEvent, useState } from 'react'
-import { IFormObject, ISpendServerResp } from '../react-app-env'
+import { useSelector } from 'react-redux'
+import { IFormObject, IRootState, ISpendServerResp } from '../react-app-env'
 import { addSpend } from '../services/dispatchers/spendsDispatcher'
 import { update } from '../services/dispatchers/userDispatcher'
 import Button from './Button'
@@ -12,6 +13,7 @@ const inputFields = [
 ]
 
 const AddSpend = (): JSX.Element => {
+	const user = useSelector((store: IRootState) => store.user)
 	const [inputs] = useState(inputFields)
 	const [form, setForm] = useState<IFormObject>({ currency: '€' })
 	const [err, setErr] = useState<string[]>([])
@@ -33,7 +35,7 @@ const AddSpend = (): JSX.Element => {
 		const resp: ISpendServerResp = await addSpend(form)
 
 		if (resp.status.success) {
-			update({ spends: resp.spends!._id })
+			update({ spends: resp.spends!._id, salary: { actual: user!.salary.actual - resp.spends!.cost } })
 		}
 	}
 

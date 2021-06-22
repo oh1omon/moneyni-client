@@ -25,10 +25,13 @@ interface ISpendsStateAction extends Action {
 
 interface IUser {
 	_id: Types.ObjectId
-	id: string
 	email: string
 	password: string
 	name: string
+	salary: {
+		monthly: number
+		actual: number
+	}
 	spends: [] | Types.ObjectId[]
 }
 
