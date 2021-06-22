@@ -110,6 +110,7 @@ const AddSpend = (): JSX.Element => {
 					<option value='Entertainment and Gifts'>Entertainment and Gifts</option>
 					<option value='Connection'>Connection</option>
 				</select>
+
 				{inputs
 					.filter((input) => input.activated)
 					.map((input) => (
