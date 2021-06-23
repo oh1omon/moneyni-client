@@ -15,7 +15,6 @@ import { initializeState } from './services/dispatchers/userDispatcher'
 const App = (): JSX.Element => {
 	//Getting user from global state
 	const user: TUserState = useSelector((state: IRootState) => state.user)
-
 	//Fetching user object and its spends from server
 	useEffect(() => {
 		initializeState()
