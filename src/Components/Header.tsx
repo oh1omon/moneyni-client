@@ -42,25 +42,19 @@ export const Header = (): JSX.Element => {
 						</div>
 					</div>
 					<div className='relative month row-start-10 row-span-3 max-w-full h-full flex justify-around items-center overflow-y-auto'>
-						<div className='flex justify-around items-center overflow-y-auto'>
+						<div className='w-auto flex justify-between items-center overflow-y-auto'>
+							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>January</p>
+							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>February</p>
+							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>March</p>
+							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>April</p>
+							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>May</p>
 							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
-							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>
+							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>July</p>
+							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>August</p>
+							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>September</p>
+							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>October</p>
+							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>November</p>
+							<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>December</p>
 						</div>
 					</div>
 				</div>
