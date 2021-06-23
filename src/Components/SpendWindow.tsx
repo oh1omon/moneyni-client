@@ -1,5 +1,6 @@
 import React from 'react'
 import { ISpendWindowProps } from '../react-app-env'
+import { salarySplitter } from '../services/logic/salary-splitter'
 
 const SpendWindow = ({ spendsArr }: ISpendWindowProps): JSX.Element => {
 	return (
@@ -10,13 +11,13 @@ const SpendWindow = ({ spendsArr }: ISpendWindowProps): JSX.Element => {
 					{spendsArr.map((spend) => (
 						<li className='w-full flex justify-between items-center mb-2' key={spend._id}>
 							<div>
-								<p>PH</p>
+								<p>P</p>
 							</div>
 							<div>
-								<p className='font-light'>{spend.category}</p>
+								<p className='font-light text-xs'>{spend.category}</p>
 							</div>
 							<div>
-								<p className='font-bold'>{`${spend.cost} ${spend.currency}`}</p>
+								<p className='font-bold'>{`${salarySplitter(spend.cost)} ${spend.currency}`}</p>
 							</div>
 						</li>
 					))}
