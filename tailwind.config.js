@@ -12,15 +12,18 @@ module.exports = {
 				yellowLight: 'rgba(255,206,162,0.5)',
 				err: '#f87171',
 			},
+			white: '#ffffff',
 		},
 		extend: {
+			gridTemplateRows: { 11: 'repeat(11, minmax(0, 1fr))' },
+			gridRowStart: { 10: '10' },
 			borderRadius: { '100px': '100px' },
 			width: {
 				'1/10': '10%',
 				'9/10': '90%',
 			},
 			height: {
-				'screen-1/2': '50vh',
+				'screen-4.5/10': '45vh',
 				'screen-1/10': '10vh',
 				'1/10': '10%',
 				'9/10': '90%',
