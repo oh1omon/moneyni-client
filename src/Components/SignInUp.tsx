@@ -82,7 +82,14 @@ const SignInUp = (): JSX.Element => {
 			setErr(validationResult)
 			return
 		}
-		const { status } = signIn ? await signInUser(form) : await registerUser(form)
+
+		// Salary is rounded up to two numbers after dot, if we are registering user
+		const { status } = signIn
+			? await signInUser(form)
+			: await registerUser({
+					...form,
+					cost: Number(Number(form.salary!).toFixed(2)),
+			  })
 
 		setStatusMessage({ success: status.success, message: status.message })
 	}

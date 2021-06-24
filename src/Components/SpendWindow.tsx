@@ -1,6 +1,5 @@
 import React from 'react'
 import { ISpendWindowProps } from '../react-app-env'
-import { salarySplitter } from '../services/logic/salary-splitter'
 
 const SpendWindow = ({ spendsArr }: ISpendWindowProps): JSX.Element => {
 	return (
@@ -17,7 +16,9 @@ const SpendWindow = ({ spendsArr }: ISpendWindowProps): JSX.Element => {
 								<p className='font-light text-xs'>{spend.category}</p>
 							</div>
 							<div>
-								<p className='font-bold'>{`${salarySplitter(spend.cost)} ${spend.currency}`}</p>
+								<p className='font-bold'>{`${Number(spend.cost).toLocaleString('en-US', {
+									maximumFractionDigits: 2,
+								})} ${spend.currency}`}</p>
 							</div>
 						</li>
 					))}

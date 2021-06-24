@@ -66,8 +66,14 @@ const AddSpend = (): JSX.Element => {
 			return
 		}
 
+		// Cost is rounded up to two numbers after dot
+		const formattedForm = {
+			...form,
+			cost: Number(Number(form.cost!).toFixed(2)),
+		}
+
 		// If form has passed validation, then we are submitting it to the dispatcher.
-		const resp: ISpendServerResp = await addSpend(form)
+		const resp: ISpendServerResp = await addSpend(formattedForm)
 
 		const { status, spends } = resp
 
@@ -95,7 +101,7 @@ const AddSpend = (): JSX.Element => {
 		return err
 	}
 	return (
-		<div className='w-screen h-screen flex justify-center items-center bg-main-dark'>
+		<div className='w-screen h-screen-8/10 flex justify-center items-center bg-main-dark'>
 			<form className='flex flex-col justify-between items-center w-3/4 h-3/5'>
 				<select
 					name='category'
@@ -132,7 +138,7 @@ const AddSpend = (): JSX.Element => {
 						/>
 					))}
 
-				<p className={`${statusMessage.success ? 'text-main-yellow' : 'text-main-err'} text-sm p-2`}>
+				<p className={`${statusMessage.success ? 'text-white' : 'text-main-err'} text-sm p-2`}>
 					{statusMessage.success
 						? statusMessage.message
 						: statusMessage.message.split(' ').slice(4).join(' ')}

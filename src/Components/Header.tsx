@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router'
+import { Link } from 'react-router-dom'
 import { IRootState } from '../react-app-env'
-import { salarySplitter } from '../services/logic/salary-splitter'
 
 export const Header = (): JSX.Element => {
 	const location = useLocation()
@@ -25,19 +25,33 @@ export const Header = (): JSX.Element => {
 						<div className={'row-start-1 row-span-5 flex justify-center items-center'}>
 							<div className='flex flex-col h-full justify-around'>
 								<p>Current balance</p>
-								<h2 className='text-4xl'>{salarySplitter(user!.salary.actual)} €</h2>
+								<h2 className='text-4xl'>
+									{Number(user!.salary.actual).toLocaleString('en-US', {
+										maximumFractionDigits: 2,
+									})}
+									€
+								</h2>
 							</div>
 						</div>
 						<div className={'row-start-6 row-span-3'}>
 							<div className='flex h-full justify-between'>
 								<div className='w-1/3 flex flex-col justify-around'>
 									<p>Income</p>
-									<h3 className='text-2xl'>{salarySplitter(user!.salary.monthly)} €</h3>
+									<h3 className='text-2xl'>
+										{Number(user!.salary.monthly).toLocaleString('en-US', {
+											maximumFractionDigits: 2,
+										})}
+										€
+									</h3>
 								</div>
 								<div className='w-1/3 flex flex-col justify-around'>
 									<p>Spent</p>
 									<h3 className='text-2xl'>
-										{salarySplitter(user!.salary.monthly - user!.salary.actual)} €
+										{Number(user!.salary.monthly - user!.salary.actual).toLocaleString(
+											'en-US',
+											{ maximumFractionDigits: 2 }
+										)}
+										€
 									</h3>
 								</div>
 							</div>
@@ -61,8 +75,8 @@ export const Header = (): JSX.Element => {
 					</div>
 				) : (
 					<div className='w-4/5 h-4/5 flex justify-between items-center text-white text-2xl'>
-						<p>{user?.name}</p>
-						<p>MoneyNi</p>
+						<Link to={'/home'}>MoneyNi</Link>
+						<Link to={'/me'}>{user?.name}</Link>
 					</div>
 				)}
 			</div>
