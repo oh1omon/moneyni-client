@@ -23,7 +23,8 @@ const App = (): JSX.Element => {
 		<BrowserRouter>
 			{user && (
 				<>
-					<Header /> <Navbar />
+					<Header />
+					<Navbar />
 				</>
 			)}
 			<Switch>

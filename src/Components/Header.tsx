@@ -14,11 +14,7 @@ export const Header = (): JSX.Element => {
 		location.pathname === '/home' ? setAdvanced(true) : setAdvanced(false)
 	}, [location])
 	return (
-		<div
-			className={`w-full ${
-				advanced ? 'h-screen-4.5/10' : 'h-screen-1/10'
-			} transition-all  transition-300 ease-in-out bg-main-dark`}
-		>
+		<div className={`w-full ${advanced ? 'h-screen-4.5/10' : 'h-screen-1/10'} transition-all  transition-300 ease-in-out bg-main-dark`}>
 			<div className={'w-full h-full bg-main-light rounded-b-3xl flex justify-center items-center'}>
 				{advanced ? (
 					<div className={'h-4/5 w-5/6 grid grid-rows-11 text-white'}>
@@ -47,10 +43,9 @@ export const Header = (): JSX.Element => {
 								<div className='w-1/3 flex flex-col justify-around'>
 									<p>Spent</p>
 									<h3 className='text-2xl'>
-										{Number(user!.salary.monthly - user!.salary.actual).toLocaleString(
-											'en-US',
-											{ maximumFractionDigits: 2 }
-										)}
+										{Number(user!.salary.monthly - user!.salary.actual).toLocaleString('en-US', {
+											maximumFractionDigits: 2,
+										})}
 										€
 									</h3>
 								</div>
