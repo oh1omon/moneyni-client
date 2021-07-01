@@ -43,7 +43,7 @@ export const initializeSpendsState = async (idArr: string[]): Promise<IServerRes
 
 		dispatch({ type: actionTypes.SET_SPENDS, payload: [] })
 
-		return { status: { success: false, message: 'Problem has happened while contacting with server' } }
+		return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
 	}
 }
 
@@ -55,7 +55,7 @@ export const initializeSpendsState = async (idArr: string[]): Promise<IServerRes
  * In case of inability to contact the server, it will return status object with message of it.
  * @returns {Promise<IServerResp>} Response object
  */
-export const addSpend = async (newSpend: any): Promise<IServerResp> => {
+export const addSpend = async (newSpend: Record<string, unknown>): Promise<IServerResp> => {
 	try {
 		// Sending spend object to the server
 		const resp: ISpendServerResp = await axios.post(addUrl, newSpend).then((r) => r.data)
@@ -73,6 +73,6 @@ export const addSpend = async (newSpend: any): Promise<IServerResp> => {
 	} catch (e) {
 		console.log(e)
 
-		return { status: { success: false, message: 'Problem has happened while contacting with server' } }
+		return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
 	}
 }

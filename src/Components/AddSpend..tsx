@@ -1,6 +1,6 @@
 import React, { ChangeEvent, MouseEvent, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { IFormObject, IRootState, ISpendServerResp } from '../react-app-env'
+import { IRootState, ISpendFormObject, ISpendServerResp } from '../react-app-env'
 import { addSpend } from '../services/dispatchers/spendsDispatcher'
 import { update } from '../services/dispatchers/userDispatcher'
 import Button from './Button'
@@ -26,7 +26,7 @@ const AddSpend = (): JSX.Element => {
 	const [inputs] = useState(inputFields)
 
 	// Creating state for form
-	const [form, setForm] = useState<IFormObject>({ currency: '€' })
+	const [form, setForm] = useState<ISpendFormObject>({ currency: '€' })
 
 	// Creating state for error
 	const [err, setErr] = useState<string[]>([])
@@ -85,7 +85,7 @@ const AddSpend = (): JSX.Element => {
 		}
 	}
 
-	const formValidator = (formObject: IFormObject) => {
+	const formValidator = (formObject: ISpendFormObject) => {
 		const err: string[] = []
 
 		if (!formObject.category) {
@@ -139,9 +139,7 @@ const AddSpend = (): JSX.Element => {
 					))}
 
 				<p className={`${statusMessage.success ? 'text-white' : 'text-main-err'} text-sm p-2`}>
-					{statusMessage.success
-						? statusMessage.message
-						: statusMessage.message.split(' ').slice(4).join(' ')}
+					{statusMessage.success ? statusMessage.message : statusMessage.message.split(' ').slice(4).join(' ')}
 					{err.length > 0 && errFields.filter((e) => e.field === err[0])[0].message}
 				</p>
 

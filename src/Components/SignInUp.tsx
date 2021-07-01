@@ -135,9 +135,7 @@ const SignInUp = (): JSX.Element => {
 				<Button buttonText={signIn ? 'Sign In' : 'Sign Up'} clickHandler={submitHandler} />
 				<Input inputType={'checkbox'} inputId={'Sign Up'} changeHandler={signInChangeHandler} />
 				<p className={`${statusMessage.success ? 'text-main-yellow' : 'text-main-err'} text-sm p-2`}>
-					{statusMessage.success
-						? statusMessage.message
-						: statusMessage.message.split(' ').slice(4).join(' ')}
+					{statusMessage.success ? statusMessage.message : statusMessage.message.split(' ').slice(4).join(' ')}
 					{err.length > 0 && errFields.filter((e) => e.field === err[0])[0].message}
 				</p>
 			</form>

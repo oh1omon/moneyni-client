@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { IServerResp, IUserServerResp } from '../../react-app-env'
+import { IFormObject, IServerResp, IUserServerResp } from '../../react-app-env'
 import { store } from '../../store/store'
 import * as actionTypes from '../../store/user/userAction'
 import { initializeSpendsState } from './spendsDispatcher'
@@ -27,7 +27,7 @@ export const initializeState = async (): Promise<IServerResp> => {
 		// Fetching data
 		const resp: IUserServerResp = await axios.get(retrieveUrl).then((r) => r.data)
 
-		// TODO: delete
+		// TODO delete
 		console.log(resp)
 		//
 
@@ -62,7 +62,7 @@ export const initializeState = async (): Promise<IServerResp> => {
  * In case of inability to contact the server, it will return status object with message of it.
  * @returns {Promise<IServerResp>} Response object
  */
-export const registerUser = async (newUserData: any): Promise<IServerResp> => {
+export const registerUser = async (newUserData: Record<string, unknown>): Promise<IServerResp> => {
 	try {
 		// Sending candidates object to the server
 		const resp: IUserServerResp = await axios.post(registerUrl, newUserData).then((r) => r.data)
@@ -94,7 +94,7 @@ export const registerUser = async (newUserData: any): Promise<IServerResp> => {
  * In case of inability to contact the server, it will return status object with message of it.
  * @returns {Promise<IServerResp>} Response object
  */
-export const signInUser = async (user: any): Promise<IServerResp> => {
+export const signInUser = async (user: IFormObject): Promise<IServerResp> => {
 	try {
 		// Sending login object to the server
 		const resp: IUserServerResp = await axios.post(loginUrl, user).then((r) => r.data)
@@ -117,7 +117,7 @@ export const signInUser = async (user: any): Promise<IServerResp> => {
 	} catch (e) {
 		console.log(e)
 
-		return { status: { success: false, message: 'Problem has happened while contacting with server' } }
+		return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
 	}
 }
 
@@ -149,7 +149,7 @@ export const update = async (updates: Record<string, unknown>): Promise<IServerR
 	} catch (e) {
 		console.log(e)
 
-		return { status: { success: false, message: 'Problem has happened while contacting with server' } }
+		return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
 	}
 }
 
@@ -180,6 +180,6 @@ export const signOutUser = async (): Promise<IServerResp> => {
 	} catch (e) {
 		console.log(e)
 
-		return { status: { success: false, message: 'Problem has happened while contacting with server' } }
+		return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
 	}
 }

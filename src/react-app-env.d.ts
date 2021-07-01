@@ -101,7 +101,7 @@ interface IButtonProps {
 	clickHandler: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-interface IFormObject {
+interface ISpendFormObject {
 	category?: string
 	comment?: string
 	cost?: number
