@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { IServerResp, ISpendServerResp, ISpendsServerResp } from '../../react-app-env'
-import * as actionTypes from '../../store/spends/spendsActions'
+import * as monthActionTypes from '../../store/month/month-actions'
+import * as spendActionTypes from '../../store/spends/spendsActions'
 import { store } from '../../store/store'
 
 // API urls
@@ -29,23 +30,50 @@ export const initializeSpendsState = async (idArr: string[]): Promise<IServerRes
 
 		// In case of success we will dispatch spends array to the store and return response
 		if (resp.status.success) {
-			dispatch({ type: actionTypes.SET_SPENDS, payload: resp.spends })
+			dispatch({ type: spendActionTypes.SET_SPENDS, payload: resp.spends })
 
 			return resp
 		}
 
 		// Handling the case of unsuccess in fetching spends
-		dispatch({ type: actionTypes.SET_SPENDS, payload: [] })
+		dispatch({ type: spendActionTypes.SET_SPENDS, payload: [] })
 
 		return resp
 	} catch (e) {
 		console.log(e)
 
-		dispatch({ type: actionTypes.SET_SPENDS, payload: [] })
+		dispatch({ type: spendActionTypes.SET_SPENDS, payload: [] })
 
 		return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
 	}
 }
+
+export const getSpends = async (month:number):Promise<IServerResp> => {	try {
+	// Fetching data
+	const resp: ISpendsServerResp = await axios.post(getUrl, { month }).then((r) => r.data)
+
+	// TODO: delete
+	console.log(resp)
+	//
+
+	// In case of success we will dispatch spends array to the store and return response
+	if (resp.status.success) {
+		dispatch({ type: monthActionTypes.SET_MONTH, payload: resp.spends })
+
+		return resp
+	}
+
+	// Handling the case of unsuccess in fetching spends
+	dispatch({ type: monthActionTypes.SET_MONTH, payload: [] })
+
+	return resp
+} catch (e) {
+	console.log(e)
+
+	dispatch({ type: monthActionTypes.SET_MONTH, payload: [] })
+
+	return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
+}}
 
 /**
  * This function tries to add new spend.
@@ -66,7 +94,7 @@ export const addSpend = async (newSpend: Record<string, unknown>): Promise<IServ
 
 		// In case of success we will dispatch spend to the store and return response
 		if (resp.status.success) {
-			dispatch({ type: actionTypes.ADD_SPEND, payload: [resp.spends] })
+			dispatch({ type: spendActionTypes.ADD_SPEND, payload: [resp.spends] })
 		}
 
 		return resp
