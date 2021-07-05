@@ -2,11 +2,6 @@
 
 import { Action } from 'redux'
 
-type ISpendAction = {
-	type: string
-	spending: ISpending
-}
-
 type ISpendsState = ISpend[] | []
 
 interface ISpend {
@@ -43,10 +38,28 @@ interface UserStateAction extends Action {
 	type: string
 	payload: UserState
 }
+interface IMonthStateAction extends Action {
+	type: string
+	payload: IMonthState
+}
+
+type TMonthState = IMonth[]
+
+interface IMonth {
+	_id: string
+	owner: string
+	month: number
+	spends: string[]
+	salary: {
+		monthly: number
+		actual: number
+	}
+}
 
 interface IRootState {
 	user: TUserState
 	spends: TSpendsState
+	month: TMonthState
 }
 
 interface ISpendWithDate extends ISpend {
