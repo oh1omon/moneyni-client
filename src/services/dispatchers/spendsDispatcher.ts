@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { IServerResp, ISpendServerResp, ISpendsServerResp } from '../../react-app-env'
+import { IMonthServerResp, IServerResp, ISpendServerResp, ISpendsServerResp } from '../../react-app-env'
 import * as monthActionTypes from '../../store/month/month-actions'
 import * as spendActionTypes from '../../store/spends/spendsActions'
 import { store } from '../../store/store'
@@ -48,32 +48,33 @@ export const initializeSpendsState = async (idArr: string[]): Promise<IServerRes
 	}
 }
 
-export const getSpends = async (month:number):Promise<IServerResp> => {	try {
-	// Fetching data
-	const resp: ISpendsServerResp = await axios.post(getUrl, { month }).then((r) => r.data)
+/**
+ * This function is intended  to fetch month documents from the API
+ * In case of success new month data will be stored to the global state
+ * If fetching failures, we will just return response
+ * @param month
+ */
+export const getSpends = async (month: number): Promise<IMonthServerResp> => {
+	try {
+		// Fetching data
+		const resp: IMonthServerResp = await axios.post(getUrl, { month }).then((r) => r.data)
 
-	// TODO: delete
-	console.log(resp)
-	//
+		// TODO: delete
+		console.log(resp)
+		//
 
-	// In case of success we will dispatch spends array to the store and return response
-	if (resp.status.success) {
-		dispatch({ type: monthActionTypes.SET_MONTH, payload: resp.spends })
+		// In case of success we will dispatch spends array to the store and return response
+		if (resp.status.success) {
+			dispatch({ type: monthActionTypes.SET_MONTH, payload: resp.monthData })
+		}
 
 		return resp
+	} catch (e) {
+		console.log(e)
+
+		return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
 	}
-
-	// Handling the case of unsuccess in fetching spends
-	dispatch({ type: monthActionTypes.SET_MONTH, payload: [] })
-
-	return resp
-} catch (e) {
-	console.log(e)
-
-	dispatch({ type: monthActionTypes.SET_MONTH, payload: [] })
-
-	return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
-}}
+}
 
 /**
  * This function tries to add new spend.

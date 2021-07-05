@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router'
 import { Link } from 'react-router-dom'
-import { IRootState } from '../react-app-env'
+import { IMonth, IRootState } from '../react-app-env'
+import { getSpends, initializeSpendsState } from '../services/dispatchers/spendsDispatcher'
 
 export const Header = (): JSX.Element => {
 	const location = useLocation()
 	const [advanced, setAdvanced] = useState(false)
 
-	//TODO
 	const months = [
 		'January',
 		'February',
@@ -24,11 +24,41 @@ export const Header = (): JSX.Element => {
 		'December',
 	]
 
+	// Getting user from the global store
 	const user = useSelector((state: IRootState) => state.user)
+
+	// Getting months from global store
+	const monthState = useSelector((state: IRootState) => state.month)
+
+	// Creating local state for anu month being selected to be shown
+	const [selectedMonth, setSelectedMonth] = useState<null | IMonth>(null)
+
+	/**
+	 * This function is getting month data from either global store, or API
+	 * And after that it initializing spends state with spendIds from month data
+	 * @param e
+	 */
+	const findMonth = async (e: React.MouseEvent<HTMLInputElement>) => {
+		const month = Number(e.currentTarget.value)
+		const foundMonth = monthState.find((m) => m.month === month) || (await getSpends(month)).monthData
+
+		foundMonth && initializeSpendsState(foundMonth.spends)
+
+		setSelectedMonth(foundMonth || null)
+	}
+
+	/**
+	 * This function clears local selectedMonth state, and after that it loads spends from API by spendIds from user data
+	 */
+	const deleteMonth = () => {
+		setSelectedMonth(null)
+		initializeSpendsState(user!.spends)
+	}
 
 	useEffect(() => {
 		location.pathname === '/home' ? setAdvanced(true) : setAdvanced(false)
 	}, [location])
+
 	return (
 		<div className={`w-full ${advanced ? 'h-screen-4.5/10' : 'h-screen-1/10'} transition-all  transition-300 ease-in-out bg-main-dark`}>
 			<div className={'w-full h-full bg-main-light rounded-b-3xl flex justify-center items-center'}>
@@ -38,7 +68,7 @@ export const Header = (): JSX.Element => {
 							<div className='flex flex-col h-full justify-around'>
 								<p>Current balance</p>
 								<h2 className='text-4xl'>
-									{Number(user!.salary.actual).toLocaleString('en-US', {
+									{Number(selectedMonth?.salary.actual || user?.salary.actual).toLocaleString('en-US', {
 										maximumFractionDigits: 2,
 									})}
 									€
@@ -50,7 +80,7 @@ export const Header = (): JSX.Element => {
 								<div className='w-1/3 flex flex-col justify-around'>
 									<p>Income</p>
 									<h3 className='text-2xl'>
-										{Number(user!.salary.monthly).toLocaleString('en-US', {
+										{Number(selectedMonth?.salary.monthly || user?.salary.monthly).toLocaleString('en-US', {
 											maximumFractionDigits: 2,
 										})}
 										€
@@ -59,7 +89,11 @@ export const Header = (): JSX.Element => {
 								<div className='w-1/3 flex flex-col justify-around'>
 									<p>Spent</p>
 									<h3 className='text-2xl'>
-										{Number(user!.salary.monthly - user!.salary.actual).toLocaleString('en-US', {
+										{Number(
+											selectedMonth
+												? selectedMonth?.salary.monthly - selectedMonth?.salary.actual
+												: user!.salary.monthly - user!.salary.actual
+										).toLocaleString('en-US', {
 											maximumFractionDigits: 2,
 										})}
 										€
@@ -69,23 +103,29 @@ export const Header = (): JSX.Element => {
 						</div>
 						<div className='relative month row-start-10 row-span-3 max-w-full h-full flex justify-around items-center overflow-y-auto'>
 							<div className='w-auto flex justify-between items-center overflow-y-auto'>
-								{months.map((m) => (
-									<p key={months.indexOf(m)} className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>
-										{m}
-									</p>
-								))}
-								{/*<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>January</p>*/}
-								{/*<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>February</p>*/}
-								{/*<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>March</p>*/}
-								{/*<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>April</p>*/}
-								{/*<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>May</p>*/}
-								{/*<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>June</p>*/}
-								{/*<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>July</p>*/}
-								{/*<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>August</p>*/}
-								{/*<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>September</p>*/}
-								{/*<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>October</p>*/}
-								{/*<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>November</p>*/}
-								{/*<p className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>December</p>*/}
+								{selectedMonth ? (
+									<button type={'button'} onClick={deleteMonth} className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>
+										{months[selectedMonth?.month]} x
+									</button>
+								) : (
+									// Showing only months, that user has
+									user?.months
+										.map((um) => months[um.month])
+										.map((m) => (
+											<label
+												key={months.indexOf(m)}
+												className='px-2 py-1 mx-4 rounded-lg bg-main-dark cursor-pointer'
+											>
+												<input
+													type={'radio'}
+													value={months.indexOf(m)}
+													className='w-0 opacity-0 '
+													onClick={(e) => findMonth(e)}
+												/>
+												{m}
+											</label>
+										))
+								)}
 							</div>
 						</div>
 					</div>

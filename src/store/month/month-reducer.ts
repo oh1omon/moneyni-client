@@ -4,7 +4,7 @@ import * as actionTypes from './month-actions'
 export const monthReducer = (state: TMonthState = [], action: IMonthStateAction): TMonthState => {
 	switch (action.type) {
 		case actionTypes.SET_MONTH:
-			return [...action.payload]
+			return [...state, action.payload]
 		default:
 			return state
 	}

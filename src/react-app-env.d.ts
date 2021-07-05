@@ -27,7 +27,8 @@ interface IUser {
 		monthly: number
 		actual: number
 	}
-	spends: [] | Types.ObjectId[]
+	spends: [] | string[]
+	months: { month: number; id: string }[]
 }
 
 type TUserState = IUser | null
@@ -83,6 +84,9 @@ interface IUserServerResp extends IServerResp {
 
 interface ISpendsServerResp extends IServerResp {
 	spends?: ISpend[]
+}
+interface IMonthServerResp extends IServerResp {
+	monthData?: IMonth
 }
 
 interface ISpendServerResp extends IServerResp {
