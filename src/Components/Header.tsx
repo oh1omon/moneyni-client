@@ -60,7 +60,11 @@ export const Header = (): JSX.Element => {
 	}, [location])
 
 	return (
-		<div className={`w-full ${advanced ? 'h-screen-4.5/10' : 'h-screen-1/10'} transition-all  transition-300 ease-in-out bg-main-dark`}>
+		<div
+			className={`w-full ${
+				advanced ? 'h-screen-4.5/10' : 'h-screen-1/10'
+			} transition-all  transition-300 ease-in-out bg-main-dark`}
+		>
 			<div className={'w-full h-full bg-main-light rounded-b-3xl flex justify-center items-center'}>
 				{advanced ? (
 					<div className={'h-4/5 w-5/6 grid grid-rows-11 text-white'}>
@@ -68,9 +72,12 @@ export const Header = (): JSX.Element => {
 							<div className='flex flex-col h-full justify-around'>
 								<p>Current balance</p>
 								<h2 className='text-4xl'>
-									{Number(selectedMonth?.salary.actual || user?.salary.actual).toLocaleString('en-US', {
-										maximumFractionDigits: 2,
-									})}
+									{Number(selectedMonth?.salary.actual || user?.salary.actual).toLocaleString(
+										'en-US',
+										{
+											maximumFractionDigits: 2,
+										}
+									)}
 									€
 								</h2>
 							</div>
@@ -80,7 +87,9 @@ export const Header = (): JSX.Element => {
 								<div className='w-1/3 flex flex-col justify-around'>
 									<p>Income</p>
 									<h3 className='text-2xl'>
-										{Number(selectedMonth?.salary.monthly || user?.salary.monthly).toLocaleString('en-US', {
+										{Number(
+											selectedMonth?.salary.monthly || user?.salary.monthly
+										).toLocaleString('en-US', {
 											maximumFractionDigits: 2,
 										})}
 										€
@@ -103,29 +112,39 @@ export const Header = (): JSX.Element => {
 						</div>
 						<div className='relative month row-start-10 row-span-3 max-w-full h-full flex justify-around items-center overflow-y-auto'>
 							<div className='w-auto flex justify-between items-center overflow-y-auto'>
-								{selectedMonth ? (
-									<button type={'button'} onClick={deleteMonth} className='px-2 py-1 mx-4 rounded-lg bg-main-dark'>
-										{months[selectedMonth?.month]} x
+								<>
+									<button
+										type={'button'}
+										onClick={deleteMonth}
+										className={`px-2 py-1 mx-4 rounded-lg bg-main-dark ${
+											!selectedMonth && 'border border-main-yellow'
+										}`}
+									>
+										{months[new Date().getMonth()]}
 									</button>
-								) : (
-									// Showing only months, that user has
-									user?.months
-										.map((um) => months[um.month])
-										.map((m) => (
-											<label
-												key={months.indexOf(m)}
-												className='px-2 py-1 mx-4 rounded-lg bg-main-dark cursor-pointer'
-											>
-												<input
-													type={'radio'}
-													value={months.indexOf(m)}
-													className='w-0 opacity-0 '
-													onClick={(e) => findMonth(e)}
-												/>
-												{m}
-											</label>
-										))
-								)}
+									{
+										// Showing only months, that user has
+										user?.months
+											.map((um) => months[um.month])
+											.map((m) => (
+												<label
+													key={months.indexOf(m)}
+													className={`px-2 py-1 mx-4 rounded-lg bg-main-dark cursor-pointer ${
+														selectedMonth?.month === months.indexOf(m) &&
+														'border border-main-yellow'
+													}`}
+												>
+													<input
+														type={'radio'}
+														value={months.indexOf(m)}
+														className='w-0 opacity-0 '
+														onClick={(e) => findMonth(e)}
+													/>
+													{m}
+												</label>
+											))
+									}
+								</>
 							</div>
 						</div>
 					</div>
