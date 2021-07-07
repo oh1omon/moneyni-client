@@ -63,7 +63,7 @@ export const Header = (): JSX.Element => {
 		<div
 			className={`w-full ${
 				advanced ? 'h-screen-4.5/10' : 'h-screen-1/10'
-			} transition-all  transition-300 ease-in-out bg-main-dark`}
+			} transition-all duration-200 ease-in-out bg-main-dark`}
 		>
 			<div className={'w-full h-full bg-main-light rounded-b-3xl flex justify-center items-center'}>
 				{advanced ? (

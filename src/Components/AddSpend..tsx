@@ -101,8 +101,8 @@ const AddSpend = (): JSX.Element => {
 		return err
 	}
 	return (
-		<div className='w-screen h-screen-8/10 flex justify-center items-center bg-main-dark'>
-			<form className='flex flex-col justify-between items-center w-3/4 h-3/5'>
+		<div className='w-screen h-full flex justify-center items-center'>
+			<form className='flex flex-col justify-between items-center w-3/4 h-4/5'>
 				<select
 					name='category'
 					id='category'
@@ -139,7 +139,9 @@ const AddSpend = (): JSX.Element => {
 					))}
 
 				<p className={`${statusMessage.success ? 'text-white' : 'text-main-err'} text-sm p-2`}>
-					{statusMessage.success ? statusMessage.message : statusMessage.message.split(' ').slice(4).join(' ')}
+					{statusMessage.success
+						? statusMessage.message
+						: statusMessage.message.split(' ').slice(4).join(' ')}
 					{err.length > 0 && errFields.filter((e) => e.field === err[0])[0].message}
 				</p>
 

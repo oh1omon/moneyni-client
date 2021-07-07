@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router'
-import { BrowserRouter, Redirect } from 'react-router-dom'
-import AddSpend from './Components/AddSpend.'
+import { BrowserRouter } from 'react-router-dom'
 import Analytics from './Components/Analytics'
 import { Header } from './Components/Header'
 import Home from './Components/Home'
@@ -21,27 +20,13 @@ const App = (): JSX.Element => {
 	}, [])
 	return (
 		<BrowserRouter>
-			{user && (
-				<>
-					<Header />
-					<Navbar />
-				</>
-			)}
+			{user && <Header />}
 			<Switch>
-				<Route path={'/'} exact>
-					{user ? <Redirect to={'/home'} /> : <SignInUp />}
-				</Route>
-				{user ? (
-					<>
-						<Route path={'/home'} component={Home} />
-						<Route path={'/addspend'} component={AddSpend} />
-						<Route path={'/analytics'} component={Analytics} />
-						<Route path={'/me'} component={Me} />
-					</>
-				) : (
-					<Redirect to={'/'} />
-				)}
+				<Route path={'/'}>{user ? <Home /> : <SignInUp />}</Route>
+				<Route path={'/analytics'} component={Analytics} />
+				<Route path={'/me'} component={Me} />
 			</Switch>
+			{user && <Navbar />}
 		</BrowserRouter>
 	)
 }
