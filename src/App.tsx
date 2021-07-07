@@ -22,8 +22,8 @@ const App = (): JSX.Element => {
 		<BrowserRouter>
 			{user && <Header />}
 			<Switch>
+				<Route path={'/analytics'} exact component={Analytics} />
 				<Route path={'/'}>{user ? <Home /> : <SignInUp />}</Route>
-				<Route path={'/analytics'} component={Analytics} />
 				<Route path={'/me'} component={Me} />
 			</Switch>
 			{user && <Navbar />}

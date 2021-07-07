@@ -25,9 +25,9 @@ const Navbar = (): JSX.Element => {
 	return (
 		<div className='fixed bottom-0 left-0 flex justify-around items-center flex-col w-full h-auto rounded-t-2xl bg-gradient-to-t from-main-dark to-main-light'>
 			<div
-				className={`transition-all duration-200 ease-linear ${
+				className={`transition-all duration-200 ease-linear w-full ${
 					component === 'addspend' && 'h-screen-4.5/10'
-				} ${component === 'me' && 'h-8'} ${component === '' && 'h-0'}`}
+				} ${component === 'me' && 'h-20'} ${component === '' && 'h-0'}`}
 			>
 				{component === 'addspend' && <AddSpend />}
 				{component === 'me' && <Me />}
