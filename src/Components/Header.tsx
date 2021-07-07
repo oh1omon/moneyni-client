@@ -56,7 +56,7 @@ export const Header = (): JSX.Element => {
 	}
 
 	useEffect(() => {
-		location.pathname === '/home' ? setAdvanced(true) : setAdvanced(false)
+		location.pathname === '/' ? setAdvanced(true) : setAdvanced(false)
 	}, [location])
 
 	return (

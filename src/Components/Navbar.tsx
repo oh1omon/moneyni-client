@@ -35,7 +35,7 @@ const Navbar = (): JSX.Element => {
 			<div className=' w-full h-full flex justify-center items-center py-5'>
 				<ul className='w-4/5 h-4/5 bg-blue-300  flex flex-row justify-between items-center '>
 					<li className='flex justify-center items-center '>
-						<NavLink activeClassName='text-red-700' to={'/home'}>
+						<NavLink activeClassName='text-red-700' to={'/'}>
 							<HomeIcon />
 						</NavLink>
 					</li>
