@@ -12,8 +12,8 @@ const Spends = (): JSX.Element => {
 	const spendsArr = spendSplitter(spendsWODate)
 
 	return (
-		<ul className='w-4/5 h-5/6 overflow-y-auto'>
-			{spendsArr.map((spends: ISpendWithDate[]) => (
+		<ul className='w-4/5 h-auto mt-10 mb-20'>
+			{spendsArr.reverse().map((spends: ISpendWithDate[]) => (
 				<SpendWindow key={spends.map((s) => s._id).toString()} spendsArr={spends} />
 			))}
 		</ul>

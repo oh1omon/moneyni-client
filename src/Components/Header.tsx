@@ -4,25 +4,11 @@ import { useLocation } from 'react-router'
 import { Link } from 'react-router-dom'
 import { IMonth, IRootState } from '../react-app-env'
 import { getSpends, initializeSpendsState } from '../services/dispatchers/spendsDispatcher'
+import { months } from '../assets/lists/months'
 
 export const Header = (): JSX.Element => {
 	const location = useLocation()
 	const [advanced, setAdvanced] = useState(false)
-
-	const months = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'October',
-		'November',
-		'December',
-	]
 
 	// Getting user from the global store
 	const user = useSelector((state: IRootState) => state.user)
@@ -63,7 +49,7 @@ export const Header = (): JSX.Element => {
 		<div
 			className={`w-full ${
 				advanced ? 'h-screen-4.5/10' : 'h-screen-1/10'
-			} transition-all duration-200 ease-in-out bg-main-dark`}
+			} transition-all duration-200 ease-out bg-main-dark`}
 		>
 			<div className={'w-full h-full bg-main-light rounded-b-3xl flex justify-center items-center'}>
 				{advanced ? (
@@ -125,7 +111,7 @@ export const Header = (): JSX.Element => {
 									{
 										// Showing only months, that user has
 										user?.months
-											.map((um) => months[um.month])
+											?.map((um) => months[um.month])
 											.map((m) => (
 												<label
 													key={months.indexOf(m)}
@@ -150,8 +136,20 @@ export const Header = (): JSX.Element => {
 					</div>
 				) : (
 					<div className='w-4/5 h-4/5 flex justify-between items-center text-white text-2xl'>
-						<Link to={'/home'}>MoneyNi</Link>
-						<Link to={'/me'}>{user?.name}</Link>
+						<Link className={`text-sm`} to={'/home'}>
+							MNi
+						</Link>
+						<div className='flex flex-col h-full justify-around'>
+							<h2 className='text-3xl'>
+								{Number(user?.salary.actual).toLocaleString('en-US', {
+									maximumFractionDigits: 2,
+								})}
+								€
+							</h2>
+						</div>
+						<Link className={`text-sm`} to={'/me'}>
+							{user?.name}
+						</Link>
 					</div>
 				)}
 			</div>
