@@ -5,6 +5,7 @@ import { addSpend } from '../services/dispatchers/spendsDispatcher'
 import { update } from '../services/dispatchers/userDispatcher'
 import Button from './Button'
 import Input from './Input'
+import { Loader } from './Loader'
 
 // Fields that are used for signing in and up
 const inputFields = [
@@ -21,6 +22,9 @@ const errFields = [
 const AddSpend = (): JSX.Element => {
 	// Fetching user form the global state
 	const user = useSelector((store: IRootState) => store.user)
+
+	// State of loading
+	const [loader, setLoader] = useState(false)
 
 	// Initing inputs
 	const [inputs] = useState(inputFields)
@@ -72,8 +76,14 @@ const AddSpend = (): JSX.Element => {
 			cost: Number(Number(form.cost!).toFixed(2)),
 		}
 
+		// Setting loader up
+		setLoader(true)
+
 		// If form has passed validation, then we are submitting it to the dispatcher.
 		const resp: ISpendServerResp = await addSpend(formattedForm)
+
+		// Setting loader down
+		setLoader(false)
 
 		const { status, spends } = resp
 
@@ -101,8 +111,8 @@ const AddSpend = (): JSX.Element => {
 		return err
 	}
 	return (
-		<div className='w-screen h-full flex justify-center items-center'>
-			<form className='flex flex-col justify-between items-center w-3/4 h-4/5'>
+		<div className='w-screen h-full flex justify-center items-end'>
+			<form className='flex flex-col justify-between items-center w-3/4 h-9/10'>
 				<select
 					name='category'
 					id='category'
@@ -138,12 +148,18 @@ const AddSpend = (): JSX.Element => {
 						/>
 					))}
 
-				<p className={`${statusMessage.success ? 'text-white' : 'text-main-err'} text-sm p-2`}>
-					{statusMessage.success
-						? statusMessage.message
-						: statusMessage.message.split(' ').slice(4).join(' ')}
-					{err.length > 0 && errFields.filter((e) => e.field === err[0])[0].message}
-				</p>
+				{loader ? (
+					<div className={'w-1/5'}>
+						<Loader />
+					</div>
+				) : (
+					<p className={`${statusMessage.success ? 'text-white' : 'text-main-err'} text-sm p-2`}>
+						{statusMessage.success
+							? statusMessage.message
+							: statusMessage.message.split(' ').slice(4).join(' ')}
+						{err.length > 0 ? errFields.filter((e) => e.field === err[0])[0].message : ' '}
+					</p>
+				)}
 
 				<Button buttonText={'Add Spend'} clickHandler={submitHandler} />
 			</form>

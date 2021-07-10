@@ -27,7 +27,7 @@ const Navbar = (): JSX.Element => {
 			<div
 				className={`transition-all duration-200 ease-out w-full ${
 					component === 'addspend' && 'h-screen-4.5/10'
-				} ${component === 'me' && 'h-20'} ${component === '' && 'h-0'}`}
+				} ${component === 'me' && 'h-16'} ${component === '' && 'h-0'}`}
 			>
 				{component === 'addspend' && <AddSpend />}
 				{component === 'me' && <Me />}

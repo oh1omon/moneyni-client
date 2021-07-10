@@ -8,7 +8,7 @@ const Me = (): JSX.Element => {
 		signOutUser()
 	}
 	return (
-		<div className='w-full h-full flex justify-around items-center'>
+		<div className='w-full h-full flex justify-around items-end'>
 			<div className='w-1/2 flex justify-center items-center'>
 				<Button buttonText='Sign Out' clickHandler={clickHandler} />
 			</div>
