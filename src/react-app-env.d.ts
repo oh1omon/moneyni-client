@@ -39,6 +39,7 @@ interface UserStateAction extends Action {
 	type: string
 	payload: UserState
 }
+
 interface IMonthStateAction extends Action {
 	type: string
 	payload: IMonthState
@@ -85,6 +86,7 @@ interface IUserServerResp extends IServerResp {
 interface ISpendsServerResp extends IServerResp {
 	spends?: ISpend[]
 }
+
 interface IMonthServerResp extends IServerResp {
 	monthData?: IMonth
 }

@@ -44,7 +44,12 @@ export const initializeSpendsState = async (idArr: string[]): Promise<IServerRes
 
 		dispatch({ type: spendActionTypes.SET_SPENDS, payload: [] })
 
-		return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
+		return {
+			status: {
+				success: false,
+				message: 'Error in internal processes: Problem has happened while contacting with server',
+			},
+		}
 	}
 }
 
@@ -72,7 +77,12 @@ export const getSpends = async (month: number): Promise<IMonthServerResp> => {
 	} catch (e) {
 		console.log(e)
 
-		return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
+		return {
+			status: {
+				success: false,
+				message: 'Error in internal processes: Problem has happened while contacting with server',
+			},
+		}
 	}
 }
 
@@ -102,6 +112,11 @@ export const addSpend = async (newSpend: Record<string, unknown>): Promise<IServ
 	} catch (e) {
 		console.log(e)
 
-		return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
+		return {
+			status: {
+				success: false,
+				message: 'Error in internal processes: Problem has happened while contacting with server',
+			},
+		}
 	}
 }

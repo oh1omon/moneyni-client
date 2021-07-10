@@ -38,7 +38,9 @@ export const spendSplitter: TSpendsSplitter = (spendsArr) => {
 	const newSpendsArr: ISpendWithDate[] = spendsArr.map((item) => addDateToSpend(item))
 
 	//Magic is done here
-	const uniqueDatesArr = [...new Set(newSpendsArr.map((item) => `${item.date.getDate()}/${item.date.getMonth()}`))]
+	const uniqueDatesArr = [
+		...new Set(newSpendsArr.map((item) => `${item.date.getDate()}/${item.date.getMonth()}`)),
+	]
 	return [
 		...uniqueDatesArr.map((unItem) =>
 			newSpendsArr.filter((item) => `${item.date.getDate()}/${item.date.getMonth()}` === unItem)

@@ -117,7 +117,12 @@ export const signInUser = async (user: IFormObject): Promise<IServerResp> => {
 	} catch (e) {
 		console.log(e)
 
-		return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
+		return {
+			status: {
+				success: false,
+				message: 'Error in internal processes: Problem has happened while contacting with server',
+			},
+		}
 	}
 }
 
@@ -149,7 +154,12 @@ export const update = async (updates: Record<string, unknown>): Promise<IServerR
 	} catch (e) {
 		console.log(e)
 
-		return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
+		return {
+			status: {
+				success: false,
+				message: 'Error in internal processes: Problem has happened while contacting with server',
+			},
+		}
 	}
 }
 
@@ -180,6 +190,11 @@ export const signOutUser = async (): Promise<IServerResp> => {
 	} catch (e) {
 		console.log(e)
 
-		return { status: { success: false, message: 'Error in internal processes: Problem has happened while contacting with server' } }
+		return {
+			status: {
+				success: false,
+				message: 'Error in internal processes: Problem has happened while contacting with server',
+			},
+		}
 	}
 }
