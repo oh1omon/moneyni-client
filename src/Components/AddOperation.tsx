@@ -95,7 +95,7 @@ const AddOperation = (): JSX.Element => {
 
 			// This is for spending funds
 			update({
-				spends: operation!._id,
+				operations: operation!._id,
 				balance: {
 					current: user!.balance.current - operation!.cost,
 					income: user!.balance.income,

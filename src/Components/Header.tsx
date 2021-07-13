@@ -28,7 +28,7 @@ export const Header = (): JSX.Element => {
 		const month = Number(e.currentTarget.value)
 		const foundMonth = monthState.find((m) => m.month === month) || (await getSpends(month)).monthData
 
-		foundMonth && initializeSpendsState(foundMonth.spends)
+		foundMonth && initializeSpendsState(foundMonth.operations)
 
 		setSelectedMonth(foundMonth || null)
 	}
@@ -38,7 +38,7 @@ export const Header = (): JSX.Element => {
 	 */
 	const deleteMonth = () => {
 		setSelectedMonth(null)
-		initializeSpendsState(user!.spends)
+		initializeSpendsState(user!.operations)
 	}
 
 	useEffect(() => {
@@ -58,12 +58,11 @@ export const Header = (): JSX.Element => {
 							<div className='flex flex-col h-full justify-around'>
 								<p>Current balance</p>
 								<h2 className='text-4xl'>
-									{Number(selectedMonth?.salary.actual || user?.salary.actual).toLocaleString(
-										'en-US',
-										{
-											maximumFractionDigits: 2,
-										}
-									)}
+									{Number(
+										selectedMonth?.balance.current || user?.balance.current
+									).toLocaleString('en-US', {
+										maximumFractionDigits: 2,
+									})}
 									€
 								</h2>
 							</div>
@@ -74,7 +73,7 @@ export const Header = (): JSX.Element => {
 									<p>Income</p>
 									<h3 className='text-2xl'>
 										{Number(
-											selectedMonth?.salary.monthly || user?.salary.monthly
+											selectedMonth?.balance.income || user?.balance.income
 										).toLocaleString('en-US', {
 											maximumFractionDigits: 2,
 										})}
@@ -85,9 +84,7 @@ export const Header = (): JSX.Element => {
 									<p>Spent</p>
 									<h3 className='text-2xl'>
 										{Number(
-											selectedMonth
-												? selectedMonth?.salary.monthly - selectedMonth?.salary.actual
-												: user!.salary.monthly - user!.salary.actual
+											selectedMonth?.balance.spent || user?.balance.spent
 										).toLocaleString('en-US', {
 											maximumFractionDigits: 2,
 										})}
@@ -141,7 +138,7 @@ export const Header = (): JSX.Element => {
 						</Link>
 						<div className='flex flex-col h-full justify-around'>
 							<h2 className='text-3xl'>
-								{Number(user?.salary.actual).toLocaleString('en-US', {
+								{Number(user?.balance.current).toLocaleString('en-US', {
 									maximumFractionDigits: 2,
 								})}
 								€
