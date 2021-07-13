@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
-import Analytics from './Components/Analytics'
 import { Header } from './Components/Header'
 import Home from './Components/Home'
 import Me from './Components/Me'
@@ -22,7 +21,6 @@ const App = (): JSX.Element => {
 		<BrowserRouter>
 			{user && <Header />}
 			<Switch>
-				<Route path={'/analytics'} exact component={Analytics} />
 				<Route path={'/'}>{user ? <Home /> : <SignInUp />}</Route>
 				<Route path={'/me'} component={Me} />
 			</Switch>

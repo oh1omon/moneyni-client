@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { AnalIcon } from '../assets/icons/anal-icon'
 import { HomeIcon } from '../assets/icons/home-icon'
 import { ProfileIcon } from '../assets/icons/profile-icon'
 import AddSpend from './AddSpend.'
@@ -37,11 +36,6 @@ const Navbar = (): JSX.Element => {
 					<li className='flex justify-center items-center '>
 						<NavLink activeClassName='text-red-700' to={'/'}>
 							<HomeIcon />
-						</NavLink>
-					</li>
-					<li className='flex justify-center items-center'>
-						<NavLink activeClassName='text-red-700' to={'/analytics'}>
-							<AnalIcon />
 						</NavLink>
 					</li>
 					<li className='flex justify-center items-center'>

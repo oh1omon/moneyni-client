@@ -125,7 +125,6 @@ const AddSpend = (): JSX.Element => {
 					}`}
 				>
 					<option disabled>Select the right one</option>
-					<option value='Daily Needs'>Daily Needs</option>
 					<option value='Bad Habits'>Bad Habits</option>
 					<option value='Hygiene and Health'>Hygiene and Health</option>
 					<option value='Housing'>Housing</option>
