@@ -27,14 +27,14 @@ const convertIdToDate: TConvertIdToDate = (idString) => {
 }
 
 /**
- * This function splits array of spends into array of arrays of spends :D
+ * This function splits array of operations into array of arrays of operations :D
  * This is done depending on the date of creation of every spend.
- * So, spends created in one day will be in the on array.
+ * So, operations created in one day will be in the on array.
  * @param operationsArr
  * @returns
  */
 export const operationSplitter: TOperationsSplitter = (operationsArr) => {
-	//Adding dates to the spends
+	//Adding dates to the operations
 	const newOperationsArr: IOperationWithDate[] = operationsArr.map((item) => addDateToOperation(item))
 
 	//Magic is done here

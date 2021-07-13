@@ -21,7 +21,7 @@ export const Header = (): JSX.Element => {
 
 	/**
 	 * This function is getting month data from either global store, or API
-	 * And after that it initializing spends state with spendIds from month data
+	 * And after that it initializing operations state with spendIds from month data
 	 * @param e
 	 */
 	const findMonth = async (e: React.MouseEvent<HTMLInputElement>) => {
@@ -34,7 +34,7 @@ export const Header = (): JSX.Element => {
 	}
 
 	/**
-	 * This function clears local selectedMonth state, and after that it loads spends from API by spendIds from user data
+	 * This function clears local selectedMonth state, and after that it loads operations from API by spendIds from user data
 	 */
 	const deleteMonth = () => {
 		setSelectedMonth(null)

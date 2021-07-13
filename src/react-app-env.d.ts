@@ -13,7 +13,7 @@ interface IOperation {
 	currency: string
 }
 
-interface ISpendsStateAction extends Action {
+interface IOperationsStateAction extends Action {
 	type: string
 	payload: IOperationsState
 }

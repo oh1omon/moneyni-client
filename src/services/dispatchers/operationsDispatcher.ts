@@ -1,20 +1,20 @@
 import axios from 'axios'
 import { IMonthServerResp, IOperationServerResp, IOperationsServerResp, IServerResp } from '../../react-app-env'
 import * as monthActionTypes from '../../store/month/month-actions'
-import * as operationsActionTypes from '../../store/spends/spendsActions'
+import * as operationsActionTypes from '../../store/operations/opeartionsActions'
 import { store } from '../../store/store'
 
 // API urls
-const getUrl = '/api/spends'
-const addUrl = '/api/spends/add'
+const getUrl = '/api/operations'
+const addUrl = '/api/operations/add'
 
 // Creating dispatch statement
 const dispatch = store.dispatch
 
 /**
- * This function tries to initialize spends state.
+ * This function tries to initialize operations state.
  * It checks if there is any problem in the response.
- * If no, then it will dispatch spends to the store and return response from the server.
+ * If no, then it will dispatch operations to the store and return response from the server.
  * If there are some problems, then it will return response from the server.
  * In case of inability to contact the server, it will return status object with message of it.
  * @returns {Promise<IServerResp>} Response object
@@ -28,14 +28,14 @@ export const initializeOperationsState = async (idArr: string[]): Promise<IServe
 		console.log(resp)
 		//
 
-		// In case of success we will dispatch spends array to the store and return response
+		// In case of success we will dispatch operations array to the store and return response
 		if (resp.status.success) {
 			dispatch({ type: operationsActionTypes.SET_OPERATIONS, payload: resp.operations })
 
 			return resp
 		}
 
-		// Handling the case of unsuccess in fetching spends
+		// Handling the case of unsuccess in fetching operations
 		dispatch({ type: operationsActionTypes.SET_OPERATIONS, payload: [] })
 
 		return resp
@@ -68,7 +68,7 @@ export const getOperations = async (month: number): Promise<IMonthServerResp> =>
 		console.log(resp)
 		//
 
-		// In case of success we will dispatch spends array to the store and return response
+		// In case of success we will dispatch operations array to the store and return response
 		if (resp.status.success) {
 			dispatch({ type: monthActionTypes.SET_MONTH, payload: resp.monthData })
 		}
@@ -89,7 +89,7 @@ export const getOperations = async (month: number): Promise<IMonthServerResp> =>
 /**
  * This function tries to add new spend.
  * It checks if there is any problem in the response.
- * If no, then it will dispatch spends to the store and return response from the server.
+ * If no, then it will dispatch operations to the store and return response from the server.
  * If there are some problems, then it will return response from the server.
  * In case of inability to contact the server, it will return status object with message of it.
  * @returns {Promise<IServerResp>} Response object

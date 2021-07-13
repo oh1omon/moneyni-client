@@ -35,7 +35,7 @@ export const initializeState = async (): Promise<IServerResp> => {
 		if (resp.status.success) {
 			dispatch({ type: actionTypes.SET_USER, payload: resp.user })
 
-			initializeOperationsState(resp.user!.spends)
+			initializeOperationsState(resp.user!.operations)
 
 			return resp
 		}
@@ -108,8 +108,8 @@ export const signInUser = async (user: IFormObject): Promise<IServerResp> => {
 			// console.log(resp.user)
 			dispatch({ type: actionTypes.SET_USER, payload: resp.user })
 
-			//Fetching users spends
-			initializeOperationsState(resp.user!.spends)
+			//Fetching users operations
+			initializeOperationsState(resp.user!.operations)
 		}
 
 		// Finally we will return server response

@@ -1,12 +1,12 @@
 import { combineReducers, createStore, Store } from 'redux'
 import { IRootState } from '../react-app-env'
 import { monthReducer } from './month/month-reducer'
-import { spendsReducer } from './spends/spendsReducer'
+import { operationsReducer } from './operations/operationsReducer'
 import { userReducer } from './user/userReducer'
 
 export const rootReducer = combineReducers({
 	user: userReducer,
-	spends: spendsReducer,
+	spends: operationsReducer,
 	month: monthReducer,
 })
 
