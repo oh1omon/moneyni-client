@@ -26,7 +26,7 @@ export const Header = (): JSX.Element => {
 	 */
 	const findMonth = async (e: React.MouseEvent<HTMLInputElement>) => {
 		const month = Number(e.currentTarget.value)
-		const foundMonth = monthState.find((m) => m.month === month) || (await getOperations(month)).monthData
+		const foundMonth = (await getOperations(month)).monthData
 
 		foundMonth && initializeOperationsState(foundMonth.operations)
 

@@ -16,7 +16,7 @@ const AddOperation = (): JSX.Element => {
 	// State of loading
 	const [loader, setLoader] = useState(false)
 
-	// Initing inputs
+	// Initializing inputs
 	const [inputs] = useState(inputFields)
 
 	// Creating state for form

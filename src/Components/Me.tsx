@@ -1,5 +1,6 @@
 import React, { MouseEvent } from 'react'
 import { signOutUser } from '../services/dispatchers/userDispatcher'
+import { Link } from 'react-router-dom'
 import Button from './Button'
 
 const Me = (): JSX.Element => {
@@ -13,10 +14,15 @@ const Me = (): JSX.Element => {
 				<Button buttonText='Sign Out' clickHandler={clickHandler} />
 			</div>
 			<div className='w-1/2 flex justify-center items-center'>
-				<Button
-					buttonText='Update'
-					clickHandler={(e: MouseEvent<HTMLButtonElement>) => e.preventDefault()}
-				/>
+				<Link
+					className={
+						'p-2 border border-main-yellow w-3/4 rounded-md bg-main-dark text-main-yellow hover:bg-main-light flex' +
+						' justify-center items-center'
+					}
+					to={'/update'}
+				>
+					Update
+				</Link>
 			</div>
 		</div>
 	)

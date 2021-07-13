@@ -4,6 +4,7 @@ import { HomeIcon } from '../assets/icons/home-icon'
 import { ProfileIcon } from '../assets/icons/profile-icon'
 import AddOperation from './AddOperation'
 import Me from './Me'
+import Update from './Update'
 
 const Navbar = (): JSX.Element => {
 	const location = useLocation()
@@ -17,6 +18,9 @@ const Navbar = (): JSX.Element => {
 			case '/me':
 				setComponent('me')
 				break
+			case '/update':
+				setComponent('update')
+				break
 			default:
 				setComponent('')
 		}
@@ -26,10 +30,13 @@ const Navbar = (): JSX.Element => {
 			<div
 				className={`transition-all duration-200 ease-out w-full ${
 					component === 'addspend' && 'h-screen-4.5/10'
-				} ${component === 'me' && 'h-16'} ${component === '' && 'h-0'}`}
+				} ${component === 'me' && 'h-16'} ${component === '' && 'h-0'} ${
+					component === 'update' && 'h-64'
+				}`}
 			>
 				{component === 'addspend' && <AddOperation />}
 				{component === 'me' && <Me />}
+				{component === 'update' && <Update />}
 			</div>
 			<div className=' w-full h-full flex justify-center items-center py-5'>
 				<ul className='w-4/5 h-4/5 bg-blue-300  flex flex-row justify-between items-center '>

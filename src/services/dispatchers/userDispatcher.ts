@@ -135,7 +135,7 @@ export const signInUser = async (user: IFormObject): Promise<IServerResp> => {
  * In case of inability to contact the server, it will return status object with message of it.
  * @returns {Promise<IServerResp>} Response object
  */
-export const update = async (updates: Record<string, unknown>): Promise<IServerResp> => {
+export const update = async (updates: Record<string, any>): Promise<IServerResp> => {
 	try {
 		// Sending login object to the server
 		const resp: IUserServerResp = await axios.post(updateUrl, updates).then((r) => r.data)
