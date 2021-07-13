@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { IMonth, IRootState } from '../react-app-env'
 import { getOperations, initializeOperationsState } from '../services/dispatchers/operationsDispatcher'
 import { months } from '../assets/lists/months'
+import { LogoIcon } from '../assets/icons/LogoIcon'
 
 export const Header = (): JSX.Element => {
 	const location = useLocation()
@@ -12,9 +13,6 @@ export const Header = (): JSX.Element => {
 
 	// Getting user from the global store
 	const user = useSelector((state: IRootState) => state.user)
-
-	// Getting months from global store
-	const monthState = useSelector((state: IRootState) => state.month)
 
 	// Creating local state for anu month being selected to be shown
 	const [selectedMonth, setSelectedMonth] = useState<null | IMonth>(null)
@@ -51,6 +49,11 @@ export const Header = (): JSX.Element => {
 				advanced ? 'h-screen-4.5/10' : 'h-screen-1/10'
 			} transition-all duration-200 ease-out bg-main-dark`}
 		>
+			<div className={'absolute top-0 left-8'}>
+				<Link className={`text-sm`} to={'/'}>
+					<LogoIcon />
+				</Link>
+			</div>
 			<div className={'w-full h-full bg-main-light rounded-b-3xl flex justify-center items-center'}>
 				{advanced ? (
 					<div className={'h-4/5 w-5/6 grid grid-rows-11 text-white'}>
@@ -133,9 +136,7 @@ export const Header = (): JSX.Element => {
 					</div>
 				) : (
 					<div className='w-4/5 h-4/5 flex justify-between items-center text-white text-2xl'>
-						<Link className={`text-sm`} to={'/home'}>
-							MNi
-						</Link>
+						<div> </div>
 						<div className='flex flex-col h-full justify-around'>
 							<h2 className='text-3xl'>
 								{Number(user?.balance.current).toLocaleString('en-US', {

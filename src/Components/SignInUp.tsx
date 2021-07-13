@@ -70,7 +70,7 @@ const SignInUp = (): JSX.Element => {
 			return
 		}
 
-		// Salary is rounded up to two numbers after dot, if we are registering user
+		// SalaryIcon is rounded up to two numbers after dot, if we are registering user
 		const { status } = signIn
 			? await signInUser(form)
 			: await registerUser({
