@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { IMonthServerResp, IServerResp, ISpendServerResp, ISpendsServerResp } from '../../react-app-env'
+import { IMonthServerResp, IOperationServerResp, IOperationsServerResp, IServerResp } from '../../react-app-env'
 import * as monthActionTypes from '../../store/month/month-actions'
 import * as spendActionTypes from '../../store/spends/spendsActions'
 import { store } from '../../store/store'
@@ -22,7 +22,7 @@ const dispatch = store.dispatch
 export const initializeSpendsState = async (idArr: string[]): Promise<IServerResp> => {
 	try {
 		// Fetching data
-		const resp: ISpendsServerResp = await axios.post(getUrl, { idArr }).then((r) => r.data)
+		const resp: IOperationsServerResp = await axios.post(getUrl, { idArr }).then((r) => r.data)
 
 		// TODO: delete
 		console.log(resp)
@@ -97,7 +97,7 @@ export const getSpends = async (month: number): Promise<IMonthServerResp> => {
 export const addSpend = async (newSpend: Record<string, unknown>): Promise<IServerResp> => {
 	try {
 		// Sending spend object to the server
-		const resp: ISpendServerResp = await axios.post(addUrl, newSpend).then((r) => r.data)
+		const resp: IOperationServerResp = await axios.post(addUrl, newSpend).then((r) => r.data)
 
 		// TODO: delete
 		console.log(resp)

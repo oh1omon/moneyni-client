@@ -1,8 +1,8 @@
 import React from 'react'
-import { ISpendWindowProps } from '../react-app-env'
+import { IOperationWindowProps } from '../react-app-env'
 import { months } from '../assets/lists/months'
 
-const SpendWindow = ({ spendsArr }: ISpendWindowProps): JSX.Element => {
+const SpendWindow = ({ spendsArr }: IOperationWindowProps): JSX.Element => {
 	return (
 		<li className='flex justify-center items-center bg-gradient-to-br from-main-light to-main-dark rounded-tl-2xl rounded-tr-100px rounded-br-2xl rounded-bl-100px mb-10'>
 			<div className='w-2/3 h-2/3 text-main-yellow'>

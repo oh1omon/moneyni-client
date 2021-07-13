@@ -1,11 +1,11 @@
-import { ISpendWithDate, TAddDateToSpend, TConvertIdToDate, TSpendsSplitter } from '../../react-app-env'
+import { IOperationWithDate, TAddDateToOperation, TConvertIdToDate, TOperationsSplitter } from '../../react-app-env'
 
 /**
  * Function adds field to the spend with the date of this spend creation
  * @param spend
  * @returns
  */
-export const addDateToSpend: TAddDateToSpend = (spend) => {
+export const addDateToSpend: TAddDateToOperation = (spend) => {
 	return {
 		_id: spend._id,
 		owner: spend.owner,
@@ -33,9 +33,9 @@ const convertIdToDate: TConvertIdToDate = (idString) => {
  * @param spendsArr
  * @returns
  */
-export const spendSplitter: TSpendsSplitter = (spendsArr) => {
+export const spendSplitter: TOperationsSplitter = (spendsArr) => {
 	//Adding dates to the spends
-	const newSpendsArr: ISpendWithDate[] = spendsArr.map((item) => addDateToSpend(item))
+	const newSpendsArr: IOperationWithDate[] = spendsArr.map((item) => addDateToSpend(item))
 
 	//Magic is done here
 	const uniqueDatesArr = [

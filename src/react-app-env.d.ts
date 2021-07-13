@@ -1,12 +1,12 @@
 /// <reference types="react-scripts" />
-
 import { Action } from 'redux'
+import { ChangeEvent } from 'react'
 
-type ISpendsState = ISpend[] | []
+type IOperationsState = IOperation[]
 
-interface ISpend {
-	_id: Types.ObjectId
-	owner: Types.ObjectId
+interface IOperation {
+	_id: string
+	owner: string
 	category: string
 	comment: string
 	cost: number
@@ -15,34 +15,33 @@ interface ISpend {
 
 interface ISpendsStateAction extends Action {
 	type: string
-	payload: TSpendsState
+	payload: IOperationsState
 }
 
 interface IUser {
-	_id: Types.ObjectId
+	_id: string
 	email: string
 	password: string
 	name: string
-	salary: {
-		monthly: number
-		actual: number
+	balance: {
+		current: number
+		spent: number
+		income: number
 	}
-	spends: [] | string[]
+	operations: [] | string[]
 	months: { month: number; id: string }[]
 }
 
 type TUserState = IUser | null
 
-type TSpendsState = ISpend[]
-
 interface UserStateAction extends Action {
 	type: string
-	payload: UserState
+	payload: TUserState
 }
 
 interface IMonthStateAction extends Action {
 	type: string
-	payload: IMonthState
+	payload: TMonthState
 }
 
 type TMonthState = IMonth[]
@@ -51,26 +50,27 @@ interface IMonth {
 	_id: string
 	owner: string
 	month: number
-	spends: string[]
-	salary: {
-		monthly: number
-		actual: number
+	operations: string[]
+	balance: {
+		current: number
+		spent: number
+		income: number
 	}
 }
 
 interface IRootState {
 	user: TUserState
-	spends: TSpendsState
+	operations: IOperationsState
 	month: TMonthState
 }
 
-interface ISpendWithDate extends ISpend {
+interface IOperationWithDate extends IOperation {
 	date: Date
 }
 
-type TAddDateToSpend = (spend: ISpend) => ISpendWithDate
+type TAddDateToOperation = (spend: IOperation) => IOperationWithDate
 type TConvertIdToDate = (idString: string) => Date
-type TSpendsSplitter = (spendsArr: ISpend[]) => ISpendWithDate[][]
+type TOperationsSplitter = (spendsArr: IOperation[]) => IOperationWithDate[][]
 
 interface IServerResp {
 	status: {
@@ -83,20 +83,20 @@ interface IUserServerResp extends IServerResp {
 	user?: IUser
 }
 
-interface ISpendsServerResp extends IServerResp {
-	spends?: ISpend[]
+interface IOperationsServerResp extends IServerResp {
+	operations?: IOperation[]
 }
 
 interface IMonthServerResp extends IServerResp {
 	monthData?: IMonth
 }
 
-interface ISpendServerResp extends IServerResp {
-	spends?: ISpend
+interface IOperationServerResp extends IServerResp {
+	operation?: IOperation
 }
 
-interface ISpendWindowProps {
-	spendsArr: ISpendWithDate[]
+interface IOperationWindowProps {
+	operationsArr: IOperationWithDate[]
 }
 
 interface IInputProps {
@@ -110,7 +110,6 @@ interface IFormObject {
 	email?: string
 	name?: string
 	password?: string
-	salary?: number
 }
 
 type IValRes = string[]
@@ -120,7 +119,7 @@ interface IButtonProps {
 	clickHandler: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-interface ISpendFormObject {
+interface IOperationFormObject {
 	category?: string
 	comment?: string
 	cost?: number

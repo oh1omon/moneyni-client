@@ -1,25 +1,15 @@
 import React, { ChangeEvent, MouseEvent, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { IRootState, ISpendFormObject, ISpendServerResp } from '../react-app-env'
+import { IOperationFormObject, IOperationServerResp, IRootState } from '../react-app-env'
 import { addSpend } from '../services/dispatchers/spendsDispatcher'
 import { update } from '../services/dispatchers/userDispatcher'
 import Button from './Button'
 import Input from './Input'
 import { Loader } from './Loader'
+import { inputFields } from '../assets/lists/add-operations-inputs'
+import { errFields } from '../assets/lists/add-operations-errs'
 
-// Fields that are used for signing in and up
-const inputFields = [
-	{ inputId: 'comment', inputType: 'text', activated: true },
-	{ inputId: 'cost', inputType: 'tel', activated: true },
-	{ inputId: 'currency', inputType: 'text', activated: false },
-]
-
-const errFields = [
-	{ field: 'cost', message: 'Please provide cost' },
-	{ field: 'category', message: 'Please provide category' },
-]
-
-const AddSpend = (): JSX.Element => {
+const AddOperation = (): JSX.Element => {
 	// Fetching user form the global state
 	const user = useSelector((store: IRootState) => store.user)
 
@@ -30,7 +20,7 @@ const AddSpend = (): JSX.Element => {
 	const [inputs] = useState(inputFields)
 
 	// Creating state for form
-	const [form, setForm] = useState<ISpendFormObject>({ currency: '€' })
+	const [form, setForm] = useState<IOperationFormObject>({ currency: '€' })
 
 	// Creating state for error
 	const [err, setErr] = useState<string[]>([])
@@ -80,22 +70,42 @@ const AddSpend = (): JSX.Element => {
 		setLoader(true)
 
 		// If form has passed validation, then we are submitting it to the dispatcher.
-		const resp: ISpendServerResp = await addSpend(formattedForm)
+		const resp: IOperationServerResp = await addSpend(formattedForm)
 
 		// Setting loader down
 		setLoader(false)
 
-		const { status, spends } = resp
+		const { status, operation } = resp
 
 		setStatusMessage({ success: status.success, message: status.message })
 
 		// If adding is successful, then we will update user document too
 		if (status.success) {
-			update({ spends: spends!._id, salary: { actual: user!.salary.actual - spends!.cost } })
+			// This case is for adding funds to the profile
+			if (operation?.category === 'Gift' || operation?.category === 'Salary') {
+				update({
+					operations: operation!._id,
+					balance: {
+						current: user!.balance.current + operation.cost,
+						income: user!.balance.income + operation.cost,
+						spent: user!.balance.spent,
+					},
+				})
+			}
+
+			// This is for spending funds
+			update({
+				spends: operation!._id,
+				balance: {
+					current: user!.balance.current - operation!.cost,
+					income: user!.balance.income,
+					spent: user!.balance.spent - operation!.cost,
+				},
+			})
 		}
 	}
 
-	const formValidator = (formObject: ISpendFormObject) => {
+	const formValidator = (formObject: IOperationFormObject) => {
 		const err: string[] = []
 
 		if (!formObject.category) {
@@ -124,14 +134,16 @@ const AddSpend = (): JSX.Element => {
 						err.includes('category') ? 'border-main-err' : 'border-transparent'
 					}`}
 				>
-					<option disabled>Select the right one</option>
+					<option value={'Gift'}>Gift</option>
+					<option value={'Salary'}>Salary</option>
+					<option disabled>--</option>
 					<option value='Bad Habits'>Bad Habits</option>
 					<option value='Hygiene and Health'>Hygiene and Health</option>
 					<option value='Housing'>Housing</option>
 					<option value='Clothing and Cosmetics'>Clothing and Cosmetics</option>
 					<option value='Travel'>Travel</option>
 					<option value='Food'>Food</option>
-					<option value='Entertainment and Gifts'>Entertainment and Gifts</option>
+					<option value='Entertainment'>Entertainment and Gifts</option>
 					<option value='Connection'>Connection</option>
 				</select>
 
@@ -160,10 +172,10 @@ const AddSpend = (): JSX.Element => {
 					</p>
 				)}
 
-				<Button buttonText={'Add Spend'} clickHandler={submitHandler} />
+				<Button buttonText={'Add'} clickHandler={submitHandler} />
 			</form>
 		</div>
 	)
 }
 
-export default AddSpend
+export default AddOperation

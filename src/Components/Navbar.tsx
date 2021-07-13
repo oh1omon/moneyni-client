@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { HomeIcon } from '../assets/icons/home-icon'
 import { ProfileIcon } from '../assets/icons/profile-icon'
-import AddSpend from './AddSpend.'
+import AddOperation from './AddOperation'
 import Me from './Me'
 
 const Navbar = (): JSX.Element => {
@@ -28,7 +28,7 @@ const Navbar = (): JSX.Element => {
 					component === 'addspend' && 'h-screen-4.5/10'
 				} ${component === 'me' && 'h-16'} ${component === '' && 'h-0'}`}
 			>
-				{component === 'addspend' && <AddSpend />}
+				{component === 'addspend' && <AddOperation />}
 				{component === 'me' && <Me />}
 			</div>
 			<div className=' w-full h-full flex justify-center items-center py-5'>
