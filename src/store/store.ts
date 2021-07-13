@@ -6,7 +6,7 @@ import { userReducer } from './user/userReducer'
 
 export const rootReducer = combineReducers({
 	user: userReducer,
-	spends: operationsReducer,
+	operations: operationsReducer,
 	month: monthReducer,
 })
 

@@ -146,6 +146,7 @@ export const update = async (updates: Record<string, unknown>): Promise<IServerR
 
 		// In case of success we will dispatch logged in user to the state
 		if (resp.status.success) {
+			console.log(resp.user)
 			dispatch({ type: actionTypes.SET_USER, payload: resp.user })
 		}
 

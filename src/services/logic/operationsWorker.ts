@@ -39,7 +39,7 @@ export const operationSplitter: TOperationsSplitter = (operationsArr) => {
 
 	//Magic is done here
 	const uniqueDatesArr = [
-		...new Set(newOperationsArr.map((item) => `${item.date.getDate()}/${item.date.getMonth()}`)),
+		...new Set(newOperationsArr?.map((item) => `${item.date.getDate()}/${item.date.getMonth()}`)),
 	]
 	return [
 		...uniqueDatesArr.map((unItem) =>

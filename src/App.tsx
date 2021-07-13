@@ -19,12 +19,14 @@ const App = (): JSX.Element => {
 	}, [])
 	return (
 		<BrowserRouter>
-			{user && <Header />}
-			<Switch>
-				<Route path={'/'}>{user ? <Home /> : <SignInUp />}</Route>
-				<Route path={'/me'} component={Me} />
-			</Switch>
-			{user && <Navbar />}
+			<div className={'w-full h-screen bg-main-dark'}>
+				{user && <Header />}
+				<Switch>
+					<Route path={'/'}>{user ? <Home /> : <SignInUp />}</Route>
+					<Route path={'/me'} component={Me} />
+				</Switch>
+				{user && <Navbar />}
+			</div>
 		</BrowserRouter>
 	)
 }

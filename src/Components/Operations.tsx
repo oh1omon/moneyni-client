@@ -6,16 +6,19 @@ import OperationsWindow from './OperationsWindow'
 
 const Operations = (): JSX.Element => {
 	// Getting operations array from global store
-	const spendsWODate: IOperationsState = useSelector((state: IRootState) => state.operations)
-
-	// Splitting operations into array of arrays depending on date
-	const operationsArr = operationSplitter(spendsWODate)
+	const operations: IOperationsState = useSelector((state: IRootState) => state.operations)
 
 	return (
 		<ul className='w-4/5 h-auto mt-10 mb-20'>
-			{operationsArr.reverse().map((operations: IOperationWithDate[]) => (
-				<OperationsWindow key={operations.map((s) => s._id).toString()} operationsArr={operations} />
-			))}
+			{operations &&
+				operationSplitter(operations)
+					.reverse()
+					.map((operations: IOperationWithDate[]) => (
+						<OperationsWindow
+							key={operations.map((s) => s._id).toString()}
+							operationsArr={operations}
+						/>
+					))}
 		</ul>
 	)
 }

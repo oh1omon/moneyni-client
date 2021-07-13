@@ -91,6 +91,8 @@ const AddOperation = (): JSX.Element => {
 						spent: user!.balance.spent,
 					},
 				})
+
+				return
 			}
 
 			// This is for spending funds
@@ -129,7 +131,7 @@ const AddOperation = (): JSX.Element => {
 					onChange={(e: ChangeEvent<HTMLSelectElement>) => {
 						changeHandler(e)
 					}}
-					defaultValue={'Select the right one'}
+					defaultValue={'--'}
 					className={`border-2 rounded-md bg-main-dark p-2 transition duration-300 ease-in-out text-main-yellow   ${
 						err.includes('category') ? 'border-main-err' : 'border-transparent'
 					}`}
