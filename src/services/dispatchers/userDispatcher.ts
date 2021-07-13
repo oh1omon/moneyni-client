@@ -2,7 +2,7 @@ import axios from 'axios'
 import { IFormObject, IServerResp, IUserServerResp } from '../../react-app-env'
 import { store } from '../../store/store'
 import * as actionTypes from '../../store/user/userAction'
-import { initializeSpendsState } from './spendsDispatcher'
+import { initializeOperationsState } from './operationsDispatcher'
 
 // API urls
 const registerUrl = '/api/auth/register'
@@ -35,7 +35,7 @@ export const initializeState = async (): Promise<IServerResp> => {
 		if (resp.status.success) {
 			dispatch({ type: actionTypes.SET_USER, payload: resp.user })
 
-			initializeSpendsState(resp.user!.spends)
+			initializeOperationsState(resp.user!.spends)
 
 			return resp
 		}
@@ -109,7 +109,7 @@ export const signInUser = async (user: IFormObject): Promise<IServerResp> => {
 			dispatch({ type: actionTypes.SET_USER, payload: resp.user })
 
 			//Fetching users spends
-			initializeSpendsState(resp.user!.spends)
+			initializeOperationsState(resp.user!.spends)
 		}
 
 		// Finally we will return server response

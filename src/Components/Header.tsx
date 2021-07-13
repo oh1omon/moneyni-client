@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router'
 import { Link } from 'react-router-dom'
 import { IMonth, IRootState } from '../react-app-env'
-import { getSpends, initializeSpendsState } from '../services/dispatchers/spendsDispatcher'
+import { getOperations, initializeOperationsState } from '../services/dispatchers/operationsDispatcher'
 import { months } from '../assets/lists/months'
 
 export const Header = (): JSX.Element => {
@@ -26,9 +26,9 @@ export const Header = (): JSX.Element => {
 	 */
 	const findMonth = async (e: React.MouseEvent<HTMLInputElement>) => {
 		const month = Number(e.currentTarget.value)
-		const foundMonth = monthState.find((m) => m.month === month) || (await getSpends(month)).monthData
+		const foundMonth = monthState.find((m) => m.month === month) || (await getOperations(month)).monthData
 
-		foundMonth && initializeSpendsState(foundMonth.operations)
+		foundMonth && initializeOperationsState(foundMonth.operations)
 
 		setSelectedMonth(foundMonth || null)
 	}
@@ -38,7 +38,7 @@ export const Header = (): JSX.Element => {
 	 */
 	const deleteMonth = () => {
 		setSelectedMonth(null)
-		initializeSpendsState(user!.operations)
+		initializeOperationsState(user!.operations)
 	}
 
 	useEffect(() => {

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, MouseEvent, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { IOperationFormObject, IOperationServerResp, IRootState } from '../react-app-env'
-import { addSpend } from '../services/dispatchers/spendsDispatcher'
+import { addOperation } from '../services/dispatchers/operationsDispatcher'
 import { update } from '../services/dispatchers/userDispatcher'
 import Button from './Button'
 import Input from './Input'
@@ -70,7 +70,7 @@ const AddOperation = (): JSX.Element => {
 		setLoader(true)
 
 		// If form has passed validation, then we are submitting it to the dispatcher.
-		const resp: IOperationServerResp = await addSpend(formattedForm)
+		const resp: IOperationServerResp = await addOperation(formattedForm)
 
 		// Setting loader down
 		setLoader(false)

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { IMonthServerResp, IOperationServerResp, IOperationsServerResp, IServerResp } from '../../react-app-env'
 import * as monthActionTypes from '../../store/month/month-actions'
-import * as spendActionTypes from '../../store/spends/spendsActions'
+import * as operationsActionTypes from '../../store/spends/spendsActions'
 import { store } from '../../store/store'
 
 // API urls
@@ -19,7 +19,7 @@ const dispatch = store.dispatch
  * In case of inability to contact the server, it will return status object with message of it.
  * @returns {Promise<IServerResp>} Response object
  */
-export const initializeSpendsState = async (idArr: string[]): Promise<IServerResp> => {
+export const initializeOperationsState = async (idArr: string[]): Promise<IServerResp> => {
 	try {
 		// Fetching data
 		const resp: IOperationsServerResp = await axios.post(getUrl, { idArr }).then((r) => r.data)
@@ -30,19 +30,19 @@ export const initializeSpendsState = async (idArr: string[]): Promise<IServerRes
 
 		// In case of success we will dispatch spends array to the store and return response
 		if (resp.status.success) {
-			dispatch({ type: spendActionTypes.SET_SPENDS, payload: resp.spends })
+			dispatch({ type: operationsActionTypes.SET_OPERATIONS, payload: resp.operations })
 
 			return resp
 		}
 
 		// Handling the case of unsuccess in fetching spends
-		dispatch({ type: spendActionTypes.SET_SPENDS, payload: [] })
+		dispatch({ type: operationsActionTypes.SET_OPERATIONS, payload: [] })
 
 		return resp
 	} catch (e) {
 		console.log(e)
 
-		dispatch({ type: spendActionTypes.SET_SPENDS, payload: [] })
+		dispatch({ type: operationsActionTypes.SET_OPERATIONS, payload: [] })
 
 		return {
 			status: {
@@ -59,7 +59,7 @@ export const initializeSpendsState = async (idArr: string[]): Promise<IServerRes
  * If fetching failures, we will just return response
  * @param month
  */
-export const getSpends = async (month: number): Promise<IMonthServerResp> => {
+export const getOperations = async (month: number): Promise<IMonthServerResp> => {
 	try {
 		// Fetching data
 		const resp: IMonthServerResp = await axios.post(getUrl, { month }).then((r) => r.data)
@@ -94,7 +94,7 @@ export const getSpends = async (month: number): Promise<IMonthServerResp> => {
  * In case of inability to contact the server, it will return status object with message of it.
  * @returns {Promise<IServerResp>} Response object
  */
-export const addSpend = async (newSpend: Record<string, unknown>): Promise<IServerResp> => {
+export const addOperation = async (newSpend: Record<string, unknown>): Promise<IServerResp> => {
 	try {
 		// Sending spend object to the server
 		const resp: IOperationServerResp = await axios.post(addUrl, newSpend).then((r) => r.data)
@@ -105,7 +105,7 @@ export const addSpend = async (newSpend: Record<string, unknown>): Promise<IServ
 
 		// In case of success we will dispatch spend to the store and return response
 		if (resp.status.success) {
-			dispatch({ type: spendActionTypes.ADD_SPEND, payload: [resp.spends] })
+			dispatch({ type: operationsActionTypes.ADD_OPERATION, payload: [resp.operation] })
 		}
 
 		return resp
