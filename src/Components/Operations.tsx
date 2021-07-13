@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { IOperationsState, IOperationWithDate, IRootState } from '../react-app-env'
-import { spendSplitter } from '../services/logic/spendsWorker'
+import { operationSplitter } from '../services/logic/operationsWorker'
 import OperationsWindow from './OperationsWindow'
 
 const Operations = (): JSX.Element => {
@@ -9,7 +9,7 @@ const Operations = (): JSX.Element => {
 	const spendsWODate: IOperationsState = useSelector((state: IRootState) => state.operations)
 
 	// Splitting operations into array of arrays depending on date
-	const operationsArr = spendSplitter(spendsWODate)
+	const operationsArr = operationSplitter(spendsWODate)
 
 	return (
 		<ul className='w-4/5 h-auto mt-10 mb-20'>
