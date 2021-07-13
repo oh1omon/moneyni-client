@@ -3,20 +3,8 @@ import { IFormObject, IValRes } from '../react-app-env'
 import { registerUser, signInUser } from '../services/dispatchers/userDispatcher'
 import Button from './Button'
 import Input from './Input'
-
-const inputFields = [
-	{ inputId: 'email', inputType: 'email', activated: true },
-	{ inputId: 'name', inputType: 'text', activated: false },
-	{ inputId: 'password', inputType: 'password', activated: true },
-	{ inputId: 'salary', inputType: 'tel', activated: false },
-]
-
-const errFields = [
-	{ field: 'email', message: 'Please provide your email' },
-	{ field: 'password', message: 'Please provide your password' },
-	{ field: 'name', message: 'Please provide your name' },
-	{ field: 'salary', message: 'Please provide your salary' },
-]
+import { inputFields } from '../assets/lists/sign-inup-inputs'
+import { errFields } from '../assets/lists/sign-inup-errs'
 
 const SignInUp = (): JSX.Element => {
 	const [signIn, setSignIn] = useState(true)
@@ -44,7 +32,7 @@ const SignInUp = (): JSX.Element => {
 		const getNameInputIndex = (inputName: string) => inputs.findIndex((i) => i.inputId === inputName)
 
 		//Input names, that are needed only for Sign Up
-		const signUpInputs = ['name', 'salary']
+		const signUpInputs = ['name']
 
 		//We are iterating Sign Up needed inputs and toggling them on and off
 		for (let i = 0; i < signUpInputs.length; i++) {
@@ -67,7 +55,6 @@ const SignInUp = (): JSX.Element => {
 		const prevForm = form
 		if (prevForm.name) {
 			delete prevForm['name']
-			delete prevForm['salary']
 		}
 
 		//Updating new form state
@@ -88,7 +75,6 @@ const SignInUp = (): JSX.Element => {
 			? await signInUser(form)
 			: await registerUser({
 					...form,
-					cost: Number(Number(form.salary!).toFixed(2)),
 			  })
 
 		setStatusMessage({ success: status.success, message: status.message })
@@ -110,9 +96,6 @@ const SignInUp = (): JSX.Element => {
 		}
 		if (!signIn && !formObject.name) {
 			err.push('name')
-		}
-		if (!signIn && !formObject.salary) {
-			err.push('salary')
 		}
 
 		return err
