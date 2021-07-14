@@ -5,12 +5,15 @@ import Button from './Button'
 import Input from './Input'
 import { inputFields } from '../assets/lists/sign-inup-inputs'
 import { errFields } from '../assets/lists/sign-inup-errs'
+import { useHistory } from 'react-router'
 
 const SignInUp = (): JSX.Element => {
 	const [signIn, setSignIn] = useState(true)
 	const [inputs, setInputs] = useState(inputFields)
 	const [form, setForm] = useState<IFormObject>({})
 	const [err, setErr] = useState<IValRes>([])
+
+	const history = useHistory()
 
 	//Error message to be print to user
 	//By default it is empty
@@ -78,6 +81,10 @@ const SignInUp = (): JSX.Element => {
 			  })
 
 		setStatusMessage({ success: status.success, message: status.message })
+
+		if (status.success) {
+			history.push('/')
+		}
 	}
 
 	const formValidator = (formObject: IFormObject) => {

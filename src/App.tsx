@@ -6,9 +6,9 @@ import { Header } from './Components/Header'
 import Home from './Components/Home'
 import Me from './Components/Me'
 import Navbar from './Components/Navbar'
-import SignInUp from './Components/SignInUp'
 import { IRootState, TUserState } from './react-app-env'
 import { initializeState } from './services/dispatchers/userDispatcher'
+import Landing from './Components/Landing'
 
 const App = (): JSX.Element => {
 	//Getting user from global state
@@ -22,7 +22,7 @@ const App = (): JSX.Element => {
 			<div className={'w-full h-screen bg-main-dark'}>
 				{user && <Header />}
 				<Switch>
-					<Route path={'/'}>{user ? <Home /> : <SignInUp />}</Route>
+					<Route path={'/'}>{user ? <Home /> : <Landing />}</Route>
 					<Route path={'/me'} component={Me} />
 				</Switch>
 				{user && <Navbar />}

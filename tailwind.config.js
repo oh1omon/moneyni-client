@@ -1,4 +1,5 @@
 module.exports = {
+	mode: undefined,
 	purge: {
 		content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
 	},
