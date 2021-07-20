@@ -140,13 +140,13 @@ const AddOperation = (): JSX.Element => {
 					<option value={'Salary'}>Salary</option>
 					<option disabled>--</option>
 					<option value='Bad Habits'>Bad Habits</option>
-					<option value='Hygiene and HealthIcon'>Hygiene and HealthIcon</option>
+					<option value='Hygiene and Health'>Hygiene and Health</option>
 					<option value='Housing'>Housing</option>
 					<option value='Clothing and Cosmetics'>Clothing and Cosmetics</option>
-					<option value='TravelIcon'>TravelIcon</option>
-					<option value='FoodIcon'>FoodIcon</option>
-					<option value='EntertainmentIcon'>EntertainmentIcon and Gifts</option>
-					<option value='ConnectionIcon'>ConnectionIcon</option>
+					<option value='Travel'>Travel</option>
+					<option value='Food'>Food</option>
+					<option value='Entertainment'>Entertainment and Gifts</option>
+					<option value='Connection'>Connection</option>
 				</select>
 
 				{inputs
