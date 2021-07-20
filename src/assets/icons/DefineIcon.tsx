@@ -22,11 +22,11 @@ export const defineIcon = (type: string): JSX.Element => {
 			return <ClothesIcon />
 		case 'Travel':
 			return <TravelIcon />
-		case 'FoodIcon':
+		case 'Food':
 			return <FoodIcon />
 		case 'Entertainment':
 			return <EntertainmentIcon />
-		case 'ConnectionIcon':
+		case 'Connection':
 			return <ConnectionIcon />
 		case 'Salary':
 			return <SalaryIcon />
